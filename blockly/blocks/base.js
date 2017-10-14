@@ -103,6 +103,18 @@ Blockly.Blocks['inout_digital_read'] = {
   }
 };
 
+Blockly.Blocks['inout_digital_read_pullup_resistor'] = {
+    helpUrl: 'https://www.arduino.cc/en/Tutorial/InputPullupSerial',
+    init: function() {
+        this.setColour(230);
+        this.appendDummyInput()
+            .appendField("DigitalRead with PULLUP RESISTOR PIN#")
+            .appendField(new Blockly.FieldDropdown(profile.default.digital), "PIN");
+        this.setOutput(true, 'Boolean');
+        this.setTooltip('');
+    }
+};
+
 Blockly.Blocks['inout_analog_write'] = {
   helpUrl: 'http://arduino.cc/en/Reference/AnalogWrite',
   init: function() {

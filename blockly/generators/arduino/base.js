@@ -63,6 +63,13 @@ Blockly.Arduino.inout_digital_read = function() {
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
+Blockly.Arduino.inout_digital_read_pullup_resistor = function() {
+    var dropdown_pin = this.getFieldValue('PIN');
+    Blockly.Arduino.setups_['setup_input_' + dropdown_pin] = 'pinMode(' + dropdown_pin + ', INPUT_PULLUP);';
+    var code = 'digitalRead(' + dropdown_pin + ')';
+    return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
 Blockly.Arduino.inout_analog_write = function() {
   var dropdown_pin = this.getFieldValue('PIN');
   //var dropdown_stat = this.getFieldValue('STAT');
