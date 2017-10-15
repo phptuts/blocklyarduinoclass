@@ -49,13 +49,13 @@ Blockly.Arduino.variables_set = function() {
   var argument0 = Blockly.Arduino.valueToCode(this, 'VALUE',  Blockly.Arduino.ORDER_ASSIGNMENT) || '0';
   var varName = Blockly.Arduino.variableDB_.getName(this.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
 
-  // This will set the variable's value in the setup function so that it is declared out the loop function.
-  if (typeof Blockly.Arduino.setups_['setup_var' + varName] === 'undefined') {
-      Blockly.Arduino.setups_['setup_var' + varName] = varName + ' = ' + argument0 + ';\n';
-      return '';
-  }
-  else {
-      return varName + ' = ' + argument0 + ';\n';
-  }
+  return varName + ' = ' + argument0 + ';\n';
+};
 
+Blockly.Arduino.variables_global = function () {
+    var argument0 = Blockly.Arduino.valueToCode(this, 'VALUE',  Blockly.Arduino.ORDER_ASSIGNMENT) || '0';
+    var varName = Blockly.Arduino.variableDB_.getName(this.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+
+    Blockly.Arduino.setups_['setup_var' + varName] = varName + ' = ' + argument0 + ';\n';
+    return '';
 };
