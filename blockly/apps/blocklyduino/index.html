@@ -1,15 +1,17 @@
-<html manifest=node.manifest>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <title>BlocklyDuino</title>
-  <script type="text/javascript" src="../../blockly_compressed.js"></script>
-  <script type="text/javascript" src="../../blocks_compressed.js"></script>
-  <script type="text/javascript" src="../../arduino_compressed.js"></script>
-  <script type="text/javascript" src="../../msg/js/en.js"></script>
-  <script type="text/javascript" src="Blob.js"></script>
-  <script type="text/javascript" src="spin.js"></script>
-  <script type="text/javascript" src="FileSaver.min.js"></script>
-  <script type="text/javascript" src="blockly_helper.js"></script>
+  <script type="text/javascript" src="blocks/blockly_compressed.js"></script>
+  <script type="text/javascript" src="blocks/blocks_compressed.js"></script>
+  <script type="text/javascript" src="blocks/arduino_compressed.js"></script>
+  <script type="text/javascript" src="msg/js/en.js"></script>
+  <script type="text/javascript" src="public/Blob.js"></script>
+  <script type="text/javascript" src="public/spin.js"></script>
+  <script type="text/javascript" src="public/FileSaver.min.js"></script>
+  <script type="text/javascript" src="public/blockly_helper.js"></script>
+  <script type="text/javascript" src="library/socket.io.js"></script>
+
   <script>
 
 /**
@@ -165,14 +167,35 @@ function init() {
        toolbox: toolbox});
 
   auto_save_and_restore_blocks();
-
-  //load from url parameter (single param)
-  //http://stackoverflow.com/questions/2090551/parse-query-string-in-javascript
-  var dest = unescape(location.search.replace(/^.*\=/, '')).replace(/\+/g, " ");
-  if(dest){
-    load_by_url(dest);
-  }
 }
+var socket = io.connect(':3000');
+socket.on('connection', function (socket) {
+    console.log('socket connectted');
+});
+
+socket.on('usb-ports', function (usbPorts) {
+    document.querySelector('#com-ports').innerHTML = "";
+    for (var i = 0; i < usbPorts.length; i += 1) {
+        let opt = document.createElement('option');
+        var name = isArduino(usbPorts[i]) ? '(Arduino) ' : '';
+        name += usbPorts[i].comName
+        opt.value =  i;
+        opt.innerHTML = name;
+        document.querySelector('#com-ports').appendChild(opt);
+    }
+});
+
+function isArduino(port) {
+    return typeof port.manufacturer !== 'undefined' && port.manufacturer.indexOf('Arduino') > -1;
+}
+
+socket.on('uploaded', function (uploaded) {
+    var message = uploaded ? 'Your code was successfully uploaded.' :
+        'There was an error uploading your code. Please check the blocks.';
+    alert(message);
+});
+
+
   </script>
   <style>
     html, body {
@@ -297,6 +320,9 @@ function init() {
             <td class="tabmin">&nbsp;</td>
             <td id="tab_xml" class="taboff" onclick="tabClick('xml')">XML</td>
             <td class="tabmax">
+              <select id="com-ports">
+
+              </select>
               <button type="button" onclick="uploadClick()">Upload</button>
               <button type="button" onclick="resetClick()">Reset</button>
               <button onclick="discard()">Discard</button>

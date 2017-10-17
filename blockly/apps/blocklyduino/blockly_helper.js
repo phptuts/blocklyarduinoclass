@@ -142,109 +142,29 @@ function bindEvent(element, name, func) {
   }
 }
 
-//loading examples via ajax
-var ajax;
-function createAJAX() {
-  if (window.ActiveXObject) { //IE
-    try {
-      return new ActiveXObject("Msxml2.XMLHTTP");
-    } catch (e) {
-      try {
-        return new ActiveXObject("Microsoft.XMLHTTP");
-      } catch (e2) {
-        return null;
-      }
-    }
-  } else if (window.XMLHttpRequest) {
-    return new XMLHttpRequest();
-  } else {
-    return null;
-  }
-}
 
-function onSuccess() {
-  if (ajax.readyState == 4) {
-    if (ajax.status == 200) {
-      try {
-      var xml = Blockly.Xml.textToDom(ajax.responseText);
-      } catch (e) {
-        alert('Error parsing XML:\n' + e);
-        return;
-      }
-      var count = Blockly.mainWorkspace.getAllBlocks().length;
-      if (count && confirm('Replace existing blocks?\n"Cancel" will merge.')) {
-        Blockly.mainWorkspace.clear();
-      }
-      Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
-    } else {
-      alert("Server error");
-    }
-  }
-}
 
-function load_by_url(uri) {
-  ajax = createAJAX();
-  if (!ajax) {
-　　   alert ('Not compatible with XMLHttpRequest');
-　　   return 0;
-　  }
-  if (ajax.overrideMimeType) {
-    ajax.overrideMimeType('text/xml');
-  }
 
-　　ajax.onreadystatechange = onSuccess;
-　　ajax.open ("GET", uri, true);
-　　ajax.send ("");
-}
 
 function uploadCode(code, callback) {
-    var target = document.getElementById('content_arduino');
-    var spinner = new Spinner().spin(target);
 
-    var url = "http://127.0.0.1:8080/";
+    var port = document.querySelector('#com-ports').value;
+    var url = "http://127.0.0.1:3000/upload-code/" + encodeURI(port);
     var method = "POST";
-
-    // You REALLY want async = true.
-    // Otherwise, it'll block ALL execution waiting for server response.
     var async = true;
 
     var request = new XMLHttpRequest();
-    
+
     request.onreadystatechange = function() {
-        if (request.readyState != 4) { 
-            return; 
+        if (request.readyState != 4) {
+            return;
         }
-        
-        spinner.stop();
-        
-        var status = parseInt(request.status); // HTTP response status, e.g., 200 for "200 OK"
-        var errorInfo = null;
-        switch (status) {
-        case 200:
-            break;
-        case 0:
-            errorInfo = "code 0\n\nCould not connect to server at " + url + ".  Is the local web server running?";
-            break;
-        case 400:
-            errorInfo = "code 400\n\nBuild failed - probably due to invalid source code.  Make sure that there are no missing connections in the blocks.";
-            break;
-        case 500:
-            errorInfo = "code 500\n\nUpload failed.  Is the Arduino connected to USB port?";
-            break;
-        case 501:
-            errorInfo = "code 501\n\nUpload failed.  Is 'ino' installed and in your path?  This only works on Mac OS X and Linux at this time.";
-            break;
-        default:
-            errorInfo = "code " + status + "\n\nUnknown error.";
-            break;
-        };
-        
-        callback(status, errorInfo);
+        callback(parseInt(request.status));
     };
 
     request.open(method, url, async);
     request.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
-    request.send(code);	     
+    request.send(code);
 }
 
 function uploadClick() {
@@ -252,11 +172,9 @@ function uploadClick() {
 
     alert("Ready to upload to Arduino.");
     
-    uploadCode(code, function(status, errorInfo) {
-        if (status == 200) {
-            alert("Program uploaded ok");
-        } else {
-            alert("Error uploading program: " + errorInfo);
+    uploadCode(code, function(status) {
+        if (status != 200) {
+            alert("Error uploading program.");
         }
     });
 }
@@ -264,9 +182,9 @@ function uploadClick() {
 function resetClick() {
     var code = "void setup() {} void loop() {}";
 
-    uploadCode(code, function(status, errorInfo) {
+    uploadCode(code, function(status) {
         if (status != 200) {
-            alert("Error resetting program: " + errorInfo);
+            alert("Error resetting program.");
         }
     });
 }
