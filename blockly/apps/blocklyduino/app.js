@@ -29,8 +29,12 @@ app.use(bodyParser.text());
 
 const serialPortBehaviorSubject = new RX.BehaviorSubject([]);
 const observableUSBPorts = serialPortBehaviorSubject
-                            .asObservable()
-                            .map(ports => ports.filter(port => port.comName.indexOf('tooth') == -1));
+    .asObservable()
+    .distinctUntilChanged(null, (ports) => ports.length)
+    // This is used to update the web page when a usb device enter or leaves
+    .map(ports => ports.filter(port => port.comName.indexOf('tooth') == -1));
+
+
 
 var isConnected = false;
 
@@ -41,18 +45,15 @@ setInterval(() => {
         .catch(error => serialPortBehaviorSubject.error(error));
 }, 500);
 
-// This is used to update the webpage when a usb device enter or leaves
 io.on('connection', function () {
     console.log("CONNECTED TO SOCKET");
     isConnected = true;
     observableUSBPorts
-        .distinctUntilChanged(null, (ports) => ports.length)
-        // this is to filter out blue tooth ports
+    // this is to filter out blue tooth ports
         .subscribe(usbPorts => {
             io.emit('usb-ports', usbPorts);
         });
 });
-
 
 
 let uploadCode = (code, port) => {
@@ -85,8 +86,8 @@ app.post('/upload-code/:port', function (req, res) {
     observableUSBPorts
         .take(1)
         .subscribe((ports) => {
-         uploadCode(req.body, ports[req.params['port']].comName);
-    });
+            uploadCode(req.body, ports[req.params['port']].comName);
+        });
     res.status(200);
     res.send('');
 });
