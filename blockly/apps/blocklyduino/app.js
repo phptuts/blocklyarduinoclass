@@ -48,11 +48,27 @@ const observableUSBPorts$ = RX.Observable
     .distinctUntilChanged(null, (ports) => ports.length)
     .map(ports => ports.filter(port => port.comName.indexOf('tooth') == -1));
 
+const subjectSerialMonitor = new RX.Subject();
+const observableSubjectSerialMonitor$ = subjectSerialMonitor.asObservable();
+
+
+/**
+ * Builds the stream for Reading the serial port
+ */
+observableSubjectSerialMonitor$
+    .map(bytes => new Buffer(bytes).toString('utf8'))
+    .subscribe(line => io.emit('serial-monitor', line));
+
+/**
+ * The serial port object
+ */
+let serialPort = null;
+
 /**
  * Is true if the socket is open
- * @type {boolean}
  */
 let isSocketConnected = false;
+
 
 io.on('connection', () => {
     console.log("CONNECTED TO SOCKET");
@@ -108,32 +124,27 @@ let uploadCode = (usbPort) => {
 };
 
 /**
+ * This opens the serial port and feed the behavior subject information
+ * @param selectedUSBInputPortName
+ */
+let readSerialPort = (selectedUSBInputPortName) => {
+    if (serialPort !== null) {
+        serialPort.close(() => { console.log('Closed On Purpose') });
+    }
+
+    serialPort = new SerialPort(selectedUSBInputPortName, { autoOpen: true});
+    serialPort.on('data', line => subjectSerialMonitor.next(line));
+    serialPort.on('close', () => { console.log('Serial Port was closed') })
+};
+
+/**
  * This end point serves up the main page
  */
 app.get('/',  (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.get('/serial-monitor/:port',  (req, res) => {
 
-    let behaviorSubjectSerialMonitor = new RX.Subject();
-    let observableSubjectSerialMonitor$ = behaviorSubjectSerialMonitor.asObservable();
-
-    observableUSBPorts$
-        .flatMap(usbPorts => RX.Observable.of(new SerialPort(usbPorts[req.params['port']].comName, { autoOpen: true})))
-        .do(serialPort => serialPort.pipe(new Readline()))
-        .subscribe(serialPort => serialPort.on('data', (line) => behaviorSubjectSerialMonitor.next(line)));
-
-    observableSubjectSerialMonitor$
-        .map(bytes => new Buffer(bytes).toString('utf8'))
-        .subscribe(line => {
-            io.emit('serial-monitor', line);
-            console.log('sent');
-        });
-
-    res.send('look in console');
-
-});
 
 /**
  * This is the end point for uploading the code
@@ -143,10 +154,11 @@ app.post('/upload-code/:port', (req, res) => {
     observableUSBPorts$
         .take(1)
         .do(() => writeArduinoCode(req.body))
-        .flatMap((usbPorts) => uploadCode(usbPorts[req.params['port']].comName))
+        .do(usbPorts => readSerialPort(usbPorts[req.params['port']].comName))
+        .flatMap(usbPorts => uploadCode(usbPorts[req.params['port']].comName))
         .do(() => fs.unlinkSync('sketch.ino'))
-        .do((args) => args[0] !== null ? console.error(args) : undefined)
-        .map((args) => args[0] === null)
+        .do(args => args[0] !== null ? console.error(args) : undefined)
+        .map(args => args[0] === null)
         .subscribe(uploadedSuccessfully => io.emit('uploaded', uploadedSuccessfully));
 
     res.send('');

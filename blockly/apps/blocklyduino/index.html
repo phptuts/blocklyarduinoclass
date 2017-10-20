@@ -18,9 +18,39 @@
  * List of tab names.
  * @private
  */
-var TABS_ = ['blocks', 'arduino', 'xml', 'serial_monitor'];
+var TABS_ = ['blocks', 'arduino', 'xml'];
 
 var selected = 'blocks';
+
+var socket = io.connect(':3000');
+socket.on('connection', function (socket) {
+    console.log('socket connectted');
+});
+
+socket.on('usb-ports', function (usbPorts) {
+    document.querySelector('#com-ports').innerHTML = "";
+    for (var i = 0; i < usbPorts.length; i += 1) {
+        let opt = document.createElement('option');
+        var name = isArduino(usbPorts[i]) ? '(Arduino) ' : '';
+        name += usbPorts[i].comName
+        opt.value =  i;
+        opt.innerHTML = name;
+        document.querySelector('#com-ports').appendChild(opt);
+    }
+});
+
+socket.on('serial-monitor', function(data) {
+    console.log(data, 'serail monitor');
+    var div = document.querySelector('#text_from_serial_monitor');
+    div.innerHTML += data;
+});
+
+socket.on('uploaded', function (uploaded) {
+    var message = uploaded ? 'Your code was successfully uploaded.' :
+        'There was an error uploading your code. Please check the blocks.';
+    alert(message);
+    document.querySelector('#text_from_serial_monitor').innerHTML = '';
+});
 
 /**
  * Switch the visible pane when a tab is clicked.
@@ -162,38 +192,23 @@ function init() {
 
   auto_save_and_restore_blocks();
 }
-var socket = io.connect(':3000');
-socket.on('connection', function (socket) {
-    console.log('socket connectted');
-});
 
-socket.on('usb-ports', function (usbPorts) {
-    document.querySelector('#com-ports').innerHTML = "";
-    for (var i = 0; i < usbPorts.length; i += 1) {
-        let opt = document.createElement('option');
-        var name = isArduino(usbPorts[i]) ? '(Arduino) ' : '';
-        name += usbPorts[i].comName
-        opt.value =  i;
-        opt.innerHTML = name;
-        document.querySelector('#com-ports').appendChild(opt);
-    }
-});
-
-socket.on('serial-monitor', function(data) {
-    var textArea = document.querySelector('#content_serial_monitor');
-    textArea.value += data;
-});
-
+/**
+ * This returns true if the serial port is an arduino
+ * @param port
+ * @returns {boolean}
+ */
 function isArduino(port) {
     return typeof port.manufacturer !== 'undefined' && port.manufacturer.indexOf('Arduino') > -1;
 }
 
-socket.on('uploaded', function (uploaded) {
-    var message = uploaded ? 'Your code was successfully uploaded.' :
-        'There was an error uploading your code. Please check the blocks.';
-    alert(message);
-});
-
+/**
+ * Toggles the visiblity of the serial monitor
+ */
+function toggleDebug() {
+    var debugElement = document.querySelector('#content_serial_monitor');
+    debugElement.style.display === 'none' ? debugElement.style.display = 'block' : debugElement.style.display = 'none';
+}
 
   </script>
   <style>
@@ -294,6 +309,30 @@ socket.on('uploaded', function (uploaded) {
     button:hover {
       box-shadow: 2px 2px 5px #888;
     }
+
+    #content_serial_monitor {
+      width: 50%;
+      height: 100%;
+      border: solid red 2px;
+      z-index: 1;
+      position: absolute;
+      left: 50%;
+      top: 68px;
+      background: white;
+      overflow-y: scroll;
+    }
+
+    #content_serial_monitor input {
+      width: 80%;
+      font-size: 2em;
+    }
+
+    #content_serial_monitor_send_btn {
+      vertical-align: top;
+      font-size: 2em;
+    }
+
+
   </style>
 </head>
 <body onload="init()">
@@ -318,11 +357,11 @@ socket.on('uploaded', function (uploaded) {
             <td id="tab_arduino" class="taboff" onclick="tabClick('arduino')">Arduino</td>
             <td class="tabmin">&nbsp;</td>
             <td id="tab_xml" class="taboff" onclick="tabClick('xml')">XML</td>
-            <td id="tab_serial_monitor" class="taboff" onclick="tabClick('serial_monitor')">Serial Monitor</td>
             <td class="tabmax">
               <select id="com-ports">
 
               </select>
+              <button type="button" onclick="toggleDebug()">Logging \ Debugging</button>
               <button type="button" onclick="uploadClick()">Upload</button>
               <button type="button" onclick="resetClick()">Reset</button>
               <button onclick="discard()">Discard</button>
@@ -340,10 +379,15 @@ socket.on('uploaded', function (uploaded) {
       <td height="99%" id="content_area"></td>
     </tr>
   </table>
+  <div id="content_serial_monitor" style="display: none;">
+    <input type="text" id="send_content" />
+    <button id="content_serial_monitor_send_btn">send</button>
+    <pre id="text_from_serial_monitor"></pre>
+  </div>
+
   <div id="content_blocks" class="content"></div>
   <textarea id="content_arduino" class="content" readonly wrap="off"></textarea>
   <textarea id="content_xml" class="content" wrap="off"></textarea>
-  <textarea id="content_serial_monitor" class="content" wrap="off"></textarea>
 
   <xml id="toolbox" style="display: none">
     <category name="Logic">
