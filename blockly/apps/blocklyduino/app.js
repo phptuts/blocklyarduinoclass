@@ -8,6 +8,8 @@ const port = process.env.PORT || 3000;
 
 
 const SerialPort = require('SerialPort');
+const Readline = SerialPort.parsers.Readline;
+
 const os = require('os');
 const cmd = require('node-cmd');
 const fs = require('fs');
@@ -17,6 +19,18 @@ require('rxjs/Operator/distinctUntilChanged');
 require('rxjs/Operator/map');
 require('rxjs/Operator/take');
 
+/**
+ * Guess of where the arduino executable is for windows
+ * @type string[]
+ */
+const windowsArduinoExecutableGuesses = [
+    "c:\Program Files\Arduino\Arduino_debug.exe",
+    "c:\Program Files\Arduino\Arduino.exe",
+    "c:\Program Files (x86)\Arduino\Arduino_debug.exe",
+    "c:\Program Files (x86)\Arduino\Arduino.exe"
+];
+
+const macArduinoExecutableGuess = '/Applications/Arduino.app/Contents/MacOS/Arduino';
 
 app.use('/blocks', express.static(__dirname + '/../../'));
 app.use('/public', express.static(__dirname + '/'));
@@ -27,68 +41,114 @@ app.use('/library', express.static(__dirname + '/node_modules/socket.io-client/d
 app.use('/media', express.static(__dirname + '/../../media'));
 app.use(bodyParser.text());
 
-const serialPortBehaviorSubject = new RX.BehaviorSubject([]);
-const observableUSBPorts = serialPortBehaviorSubject
-    .asObservable()
+
+const observableUSBPorts$ = RX.Observable
+    .interval(500)
+    .flatMap(() => RX.Observable.fromPromise(SerialPort.list()))
     .distinctUntilChanged(null, (ports) => ports.length)
-    // This is used to update the web page when a usb device enter or leaves
     .map(ports => ports.filter(port => port.comName.indexOf('tooth') == -1));
 
+/**
+ * Is true if the socket is open
+ * @type {boolean}
+ */
+let isSocketConnected = false;
 
-
-var isConnected = false;
-
-setInterval(() => {
-    SerialPort
-        .list()
-        .then(newPorts => serialPortBehaviorSubject.next(newPorts))
-        .catch(error => serialPortBehaviorSubject.error(error));
-}, 500);
-
-io.on('connection', function () {
+io.on('connection', () => {
     console.log("CONNECTED TO SOCKET");
-    isConnected = true;
-    observableUSBPorts
-    // this is to filter out blue tooth ports
-        .subscribe(usbPorts => {
-            io.emit('usb-ports', usbPorts);
-        });
+    isSocketConnected = true;
+    observableUSBPorts$.subscribe(usbPorts => io.emit('usb-ports', usbPorts));
 });
 
 
-let uploadCode = (code, port) => {
-
+/**
+ * Tries to guess where the arduino executable is.
+ * @returns string
+ */
+let getArduinoFile = () => {
+    let arduinoFile = null;
 
     if (os.platform() == 'darwin') {
-
-        if (fs.existsSync('sketch.ino')) {
-            fs.unlinkSync('sketch.ino');
-        }
-        fs.writeFileSync('sketch.ino', code);
-
-        var arduinoFile = '/Applications/Arduino.app/Contents/MacOS/Arduino';
-        cmd.get(`
-        ${arduinoFile} --upload sketch.ino --port ${port}
-    `, (err, data, stderr) => {
-
-            fs.unlinkSync('sketch.ino');
-            io.emit('uploaded', err === null);
-            console.log(err);
-        });
+        arduinoFile = macArduinoExecutableGuess;
     }
+    else if (os.platform() == 'win32') {
+        arduinoFile = windowsArduinoExecutableGuesses.filter((file) => fs.existsSync(file)).pop();
+    }
+    else {
+        // This means it's running linux and we can just use the command
+        arduinoFile = 'arduino';
+    }
+
+    if (arduinoFile === null || arduinoFile === undefined) {
+        throw new Error('There was an error trying to find the arduino executable file.');
+    }
+
+    return arduinoFile;
 };
 
-app.get('/', function (req, res) {
+/**
+ * Writes the arduino code
+ */
+let writeArduinoCode = (code) => {
+    if (fs.existsSync('sketch.ino')) {
+        fs.unlinkSync('sketch.ino');
+    }
+    fs.writeFileSync('sketch.ino', code);
+};
+
+/**
+ * Runs the command to upload the code and returns an observable
+ *
+ * @param usbPort the name of the usb port to upload the code
+ * @returns Observable<string[]>
+ */
+let uploadCode = (usbPort) => {
+    let getCommand = RX.Observable.bindCallback(cmd.get);
+    return getCommand(`${getArduinoFile()} --upload sketch.ino --port ${usbPort}`);
+};
+
+/**
+ * This end point serves up the main page
+ */
+app.get('/',  (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.post('/upload-code/:port', function (req, res) {
-    observableUSBPorts
-        .take(1)
-        .subscribe((ports) => {
-            uploadCode(req.body, ports[req.params['port']].comName);
+app.get('/serial-monitor/:port',  (req, res) => {
+
+    let behaviorSubjectSerialMonitor = new RX.Subject();
+    let observableSubjectSerialMonitor$ = behaviorSubjectSerialMonitor.asObservable();
+
+    observableUSBPorts$
+        .flatMap(usbPorts => RX.Observable.of(new SerialPort(usbPorts[req.params['port']].comName, { autoOpen: true})))
+        .do(serialPort => serialPort.pipe(new Readline()))
+        .subscribe(serialPort => serialPort.on('data', (line) => behaviorSubjectSerialMonitor.next(line)));
+
+    observableSubjectSerialMonitor$
+        .map(bytes => new Buffer(bytes).toString('utf8'))
+        .subscribe(line => {
+            io.emit('serial-monitor', line);
+            console.log('sent');
         });
-    res.status(200);
+
+    res.send('look in console');
+
+});
+
+/**
+ * This is the end point for uploading the code
+ */
+app.post('/upload-code/:port', (req, res) => {
+
+    observableUSBPorts$
+        .take(1)
+        .do(() => writeArduinoCode(req.body))
+        .flatMap((usbPorts) => uploadCode(usbPorts[req.params['port']].comName))
+        .do(() => fs.unlinkSync('sketch.ino'))
+        .do((args) => args[0] !== null ? console.error(args) : undefined)
+        .map((args) => args[0] === null)
+        .subscribe(uploadedSuccessfully => io.emit('uploaded', uploadedSuccessfully));
+
     res.send('');
 });
 

@@ -1,15 +1,3 @@
-/**
- * Execute the user's code.
- * Just a quick and dirty eval.  No checks for infinite loops, etc.
- */
-function runJS() {
-  var code = Blockly.Generator.workspaceToCode('JavaScript');
-  try {
-    eval(code);
-  } catch (e) {
-    alert('Program error:\n' + e);
-  }
-}
 
 /**
  * Backup code blocks to localStorage.
@@ -146,21 +134,13 @@ function bindEvent(element, name, func) {
 
 
 
-function uploadCode(code, callback) {
+function uploadCode(code) {
 
     var port = document.querySelector('#com-ports').value;
-    var url = "http://127.0.0.1:3000/upload-code/" + encodeURI(port);
+    var url = "http://127.0.0.1:3000/upload-code/" + port;
     var method = "POST";
     var async = true;
-
     var request = new XMLHttpRequest();
-
-    request.onreadystatechange = function() {
-        if (request.readyState != 4) {
-            return;
-        }
-        callback(parseInt(request.status));
-    };
 
     request.open(method, url, async);
     request.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
@@ -168,23 +148,11 @@ function uploadCode(code, callback) {
 }
 
 function uploadClick() {
-    var code = Blockly.Arduino.workspaceToCode();
-
-    alert("Ready to upload to Arduino.");
-    
-    uploadCode(code, function(status) {
-        if (status != 200) {
-            alert("Error uploading program.");
-        }
-    });
+    uploadCode(Blockly.Arduino.workspaceToCode());
 }
 
 function resetClick() {
     var code = "void setup() {} void loop() {}";
 
-    uploadCode(code, function(status) {
-        if (status != 200) {
-            alert("Error resetting program.");
-        }
-    });
+    uploadCode(code);
 }

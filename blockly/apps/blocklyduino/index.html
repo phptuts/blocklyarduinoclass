@@ -18,7 +18,7 @@
  * List of tab names.
  * @private
  */
-var TABS_ = ['blocks', 'arduino', 'xml'];
+var TABS_ = ['blocks', 'arduino', 'xml', 'serial_monitor'];
 
 var selected = 'blocks';
 
@@ -87,12 +87,6 @@ function renderContent() {
     var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
     xmlTextarea.value = xmlText;
     xmlTextarea.focus();
-  /*} else if (content.id == 'content_javascript') {
-    content.innerHTML = Blockly.JavaScript.workspaceToCode();
-  } else if (content.id == 'content_dart') {
-    content.innerHTML = Blockly.Dart.workspaceToCode();
-  } else if (content.id == 'content_python') {
-    content.innerHTML = Blockly.Python.workspaceToCode();*/
   } else if (content.id == 'content_arduino') {
     //content.innerHTML = Blockly.Arduino.workspaceToCode();
     var arduinoTextarea = document.getElementById('content_arduino');
@@ -183,6 +177,11 @@ socket.on('usb-ports', function (usbPorts) {
         opt.innerHTML = name;
         document.querySelector('#com-ports').appendChild(opt);
     }
+});
+
+socket.on('serial-monitor', function(data) {
+    var textArea = document.querySelector('#content_serial_monitor');
+    textArea.value += data;
 });
 
 function isArduino(port) {
@@ -319,6 +318,7 @@ socket.on('uploaded', function (uploaded) {
             <td id="tab_arduino" class="taboff" onclick="tabClick('arduino')">Arduino</td>
             <td class="tabmin">&nbsp;</td>
             <td id="tab_xml" class="taboff" onclick="tabClick('xml')">XML</td>
+            <td id="tab_serial_monitor" class="taboff" onclick="tabClick('serial_monitor')">Serial Monitor</td>
             <td class="tabmax">
               <select id="com-ports">
 
@@ -343,6 +343,7 @@ socket.on('uploaded', function (uploaded) {
   <div id="content_blocks" class="content"></div>
   <textarea id="content_arduino" class="content" readonly wrap="off"></textarea>
   <textarea id="content_xml" class="content" wrap="off"></textarea>
+  <textarea id="content_serial_monitor" class="content" wrap="off"></textarea>
 
   <xml id="toolbox" style="display: none">
     <category name="Logic">
