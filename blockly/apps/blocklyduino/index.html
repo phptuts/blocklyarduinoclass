@@ -40,16 +40,31 @@ socket.on('usb-ports', function (usbPorts) {
 });
 
 socket.on('serial-monitor', function(data) {
-    console.log(data, 'serail monitor');
     var div = document.querySelector('#text_from_serial_monitor');
     div.innerHTML += data;
+    console.log(data);
 });
 
 socket.on('uploaded', function (uploaded) {
     var message = uploaded ? 'Your code was successfully uploaded.' :
         'There was an error uploading your code. Please check the blocks.';
     alert(message);
-    document.querySelector('#text_from_serial_monitor').innerHTML = '';
+});
+
+socket.on('debug-block', function (blockNumber) {
+    var blocks = Blockly.mainWorkspace.getAllBlocks();
+
+    for (var i = 0; i < blocks.length; i += 1) {
+        if (blocks[i].id == blockNumber) {
+            blocks[i].setColour(450);
+            blocks[i].select();
+            continue;
+        }
+
+        if (blocks[i].type === 'debug') {
+            blocks[i].setColour(210);
+        }
+    }
 });
 
 /**
@@ -207,7 +222,19 @@ function isArduino(port) {
  */
 function toggleDebug() {
     var debugElement = document.querySelector('#content_serial_monitor');
-    debugElement.style.display === 'none' ? debugElement.style.display = 'block' : debugElement.style.display = 'none';
+    var contentBlock = document.querySelector('#content_blocks');
+    if (debugElement.style.display === 'none') {
+        debugElement.style.display = 'block';
+        contentBlock.style.width = '50%!important';
+    }  else {
+        debugElement.style.display = 'none';
+        contentBlock.style.width = '100%!important';
+    }
+}
+
+function clearSerialMonitor() {
+    var debugElement = document.querySelector('#content_serial_monitor pre');
+    debugElement.innerHTML = '';
 }
 
   </script>
@@ -311,25 +338,27 @@ function toggleDebug() {
     }
 
     #content_serial_monitor {
-      width: 50%;
-      height: 100%;
+      width: 48%;
+      height: 400px;
       border: solid red 2px;
       z-index: 1;
       position: absolute;
-      left: 50%;
+      left: 48%;
       top: 68px;
       background: white;
       overflow-y: scroll;
     }
 
-    #content_serial_monitor input {
-      width: 80%;
-      font-size: 2em;
+    #content_serial_monitor h3 {
+       font-size: 1em;
+       text-align: center;
     }
 
-    #content_serial_monitor_send_btn {
-      vertical-align: top;
-      font-size: 2em;
+    #continue-block, #clear-serial-monitor {
+       width: 48%;
+       font-size: 2em;
+       font-weight: bold;
+      margin-left: 1%;
     }
 
 
@@ -380,8 +409,10 @@ function toggleDebug() {
     </tr>
   </table>
   <div id="content_serial_monitor" style="display: none;">
-    <input type="text" id="send_content" />
-    <button id="content_serial_monitor_send_btn">send</button>
+    <h3>Logging \ Debugging Window </h3>
+    <button id="continue-block" onclick="debugContinue()">Continue Debug</button>
+    <button id="clear-serial-monitor" onclick="clearSerialMonitor()">Clear Window</button>
+
     <pre id="text_from_serial_monitor"></pre>
   </div>
 
@@ -436,6 +467,10 @@ function toggleDebug() {
     <category name="Variables" custom="VARIABLE"></category>
     <category name="Global Variables" >
       <block type="variables_global"></block>
+
+    </category>
+    <category name="Debug" >
+      <block type="debug"></block>
 
     </category>
 
@@ -551,6 +586,7 @@ function toggleDebug() {
         </value>
       </block>
     </category>
+
   </xml>
 </body>
 </html>

@@ -51,12 +51,25 @@ const observableUSBPorts$ = RX.Observable
 const subjectSerialMonitor = new RX.Subject();
 const observableSubjectSerialMonitor$ = subjectSerialMonitor.asObservable();
 
+let serialPortStringStream = '';
+const behaviorSubjectForDebugBlocks = new RX.BehaviorSubject('');
+behaviorSubjectForDebugBlocks.asObservable()
+    .filter(line => /Debugging Block [0-9]+ /.test(line))
+    .map(line => line.match(/Debugging Block [0-9]+ /)[0].replace('Debugging Block', ''))
+    .map(line => parseInt(line))
+    .subscribe(blockNumber => {
+        io.emit('debug-block', blockNumber);
+        serialPortStringStream = '';
+    });
+
 
 /**
  * Builds the stream for Reading the serial port
  */
 observableSubjectSerialMonitor$
     .map(bytes => new Buffer(bytes).toString('utf8'))
+    .do(line => serialPortStringStream += line)
+    .do(() => behaviorSubjectForDebugBlocks.next(serialPortStringStream))
     .subscribe(line => io.emit('serial-monitor', line));
 
 /**
@@ -129,22 +142,34 @@ let uploadCode = (usbPort) => {
  */
 let readSerialPort = (selectedUSBInputPortName) => {
     if (serialPort !== null) {
-        serialPort.close(() => { console.log('Closed On Purpose') });
+        serialPort.close(() => {
+            console.log('Closed On Purpose')
+        });
     }
 
-    serialPort = new SerialPort(selectedUSBInputPortName, { autoOpen: true});
+    serialPort = new SerialPort(selectedUSBInputPortName, {autoOpen: true});
+    serialPort.pipe(new Readline())
     serialPort.on('data', line => subjectSerialMonitor.next(line));
-    serialPort.on('close', () => { console.log('Serial Port was closed') })
+    serialPort.on('close', () => {
+        console.log('Serial Port was closed')
+    })
 };
 
 /**
  * This end point serves up the main page
  */
-app.get('/',  (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+app.get('/continue', (req, res) => {
 
+    if (serialPort !== null) {
+        serialPort.write("s");
+    }
+
+    res.send(serialPort === null ? 'serial-port-not-there' : '');
+});
 
 /**
  * This is the end point for uploading the code

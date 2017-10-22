@@ -14,14 +14,13 @@ Blockly.Arduino['liquid_crystal_ic2_big_lcd'] = function(block) {
     Blockly.Arduino.definitions_['define_liquid_crystal_i2c_big'] = '#include <LiquidCrystal_I2C.h>\n';
     Blockly.Arduino.definitions_['liquid_crystal_ic2_big_lcd_object'] = 'LiquidCrystal_I2C lcd(0x3F, 4, 20);';
 
-    Blockly.Arduino.setups_['liquid_crystal_ic2_big_lcd'] = 'lcd.init();';
+    Blockly.Arduino.setups_['liquid_crystal_ic2_big_lcd'] = 'lcd.init();\n'  + 'lcd.backlight(); \n';
 
     function printRow(row, textRow) {
         return  textRow !== '""' ? 'lcd.setCursor(0, ' + row + '); \n'  + 'lcd.print(' + textRow + '); \n' : '';
     }
 
     return 'lcd.clear(); \n'
-        + 'lcd.backlight(); \n'
         +  printRow(0, textRow1)
         +  printRow(1, textRow2)
         +  printRow(2, textRow3)

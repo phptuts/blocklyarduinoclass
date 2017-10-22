@@ -136,6 +136,7 @@ function bindEvent(element, name, func) {
 
 function uploadCode(code) {
 
+    document.querySelector('#text_from_serial_monitor').innerHTML = '';
     var port = document.querySelector('#com-ports').value;
     var url = "http://127.0.0.1:3000/upload-code/" + port;
     var method = "POST";
@@ -145,6 +146,34 @@ function uploadCode(code) {
     request.open(method, url, async);
     request.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
     request.send(code);
+}
+
+function clearDebug() {
+    var blocks = Blockly.mainWorkspace.getAllBlocks();
+    Blockly.selected.unselect();
+    for (var i = 0; i < blocks.length; i += 1) {
+        if (blocks[i].type === 'debug') {
+            blocks[i].setColour(210);
+        }
+    }
+}
+
+function debugContinue() {
+    clearDebug();
+
+    var url = "http://127.0.0.1:3000/continue";
+    var method = "GET";
+    var async = true;
+    var request = new XMLHttpRequest();
+
+    request.open(method, url, async);
+    request.onreadystatechange = function () {
+          if (request.readyState === 4 && request.responseText == 'serial-port-not-there') {
+              alert('There was an error connecting with your arduino please re upload the program.');
+          }
+    };
+    request.send();
+
 }
 
 function uploadClick() {
