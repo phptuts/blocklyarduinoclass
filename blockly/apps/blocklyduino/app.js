@@ -37,6 +37,7 @@ app.use('/public', express.static(__dirname + '/'));
 app.use('/msg', express.static(__dirname + '/../../msg'));
 app.use('/media', express.static(__dirname + '/../../media'));
 app.use('/library', express.static(__dirname + '/node_modules/socket.io-client/dist'));
+app.use('/images', express.static(__dirname + '/images'));
 
 app.use('/media', express.static(__dirname + '/../../media'));
 app.use(bodyParser.text());

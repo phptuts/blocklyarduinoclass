@@ -8,7 +8,7 @@ goog.require('Blockly.Blocks');
 Blockly.Blocks['liquid_crystal_ic2_big_lcd'] = {
     init: function() {
         this.appendDummyInput()
-            .appendField("LCD 20 Columns by 4 Rows \n")
+            .appendField("Simple LCD 20 Columns by 4 Rows \n")
             .appendField(new Blockly.FieldImage("https://images-na.ssl-images-amazon.com/images/I/51YdOkZkUuL.jpg", 100, 100, "*"));
 
         this.appendValueInput("Row 1")
@@ -44,6 +44,117 @@ Blockly.Blocks['liquid_crystal_ic2_big_lcd'] = {
         this.setNextStatement(true, null);
         this.setColour(210);
         this.setTooltip("Print Something to the lcd Screen.");
+        this.setHelpUrl("");
+    }
+};
+
+Blockly.Blocks['liquid_crystal_ic2_big_lcd_backlight'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField("Big LCD - Back Light \n")
+            .appendField(new Blockly.FieldImage("http://www.clker.com/cliparts/s/S/N/B/a/C/lightbulb-md.png", 50, 50, "*"));
+
+        this.appendDummyInput()
+            .appendField('Back Light ')
+            .appendField(new Blockly.FieldDropdown([
+                    ['On', 'ON'],
+                    ['Off', 'OFF']
+                ]),
+                'backlight');
+        this.setInputsInline(false);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(210);
+        this.setTooltip("Turn on or off back light.");
+        this.setHelpUrl("");
+    }
+};
+
+
+Blockly.Blocks['liquid_crystal_ic2_big_lcd_clear'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField("Big LCD - Clear \n")
+            .appendField(new Blockly.FieldImage("http://www.clker.com/cliparts/v/C/F/E/b/p/edit-clear-md.png", 50, 50, "*"));
+
+
+        this.setInputsInline(false);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(210);
+        this.setTooltip("Clears everything off the screen.");
+        this.setHelpUrl("");
+    }
+};
+
+Blockly.Blocks['liquid_crystal_ic2_big_lcd_set_cursor'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField("Big LCD - Prints To Screen \n")
+            .appendField(new Blockly.FieldImage("https://image.freepik.com/free-icon/move-action_318-30780.jpg", 50, 50, "*"));
+
+
+        this.appendValueInput("Row")
+            .setCheck("Number")
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField("The row you want to print on.");
+
+        this.appendValueInput("Column")
+            .setCheck("Number")
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField("The column you want to print on.");
+
+
+        this.setInputsInline(false);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(210);
+        this.setTooltip("Moves the position to print the text.");
+        this.setHelpUrl("");
+    }
+};
+
+Blockly.Blocks['liquid_crystal_ic2_big_lcd_print'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField("Big LCD - Sets Cursor \n")
+            .appendField(new Blockly.FieldImage("http://images.clipartpanda.com/print-clipart-xcgoE9ddi.jpeg", 50, 50, "*"));
+
+
+        this.appendValueInput("Print Message")
+            .setCheck("String")
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField("What you want to say:");
+
+
+
+        this.setInputsInline(false);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(210);
+        this.setTooltip("prints something onto the screen.");
+        this.setHelpUrl("");
+    }
+};
+
+Blockly.Blocks['liquid_crystal_ic2_big_lcd_blink'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField("Big LCD - Blink Text \n")
+            .appendField(new Blockly.FieldImage("/images/blink.png", 50, 50, "*"));
+
+        this.appendDummyInput()
+            .appendField('Back Light ')
+            .appendField(new Blockly.FieldDropdown([
+                    ['Yes', 'YES'],
+                    ['No', 'NO']
+                ]),
+                'blink');
+        this.setInputsInline(false);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(210);
+        this.setTooltip("Blinks the place where the cursor is.");
         this.setHelpUrl("");
     }
 };
