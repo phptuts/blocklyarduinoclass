@@ -140,7 +140,7 @@ Blockly.Blocks['liquid_crystal_ic2_big_lcd_print'] = {
 Blockly.Blocks['liquid_crystal_ic2_big_lcd_blink'] = {
     init: function () {
         this.appendDummyInput()
-            .appendField("Big LCD - Blink Text \n")
+            .appendField("Big LCD - Blink \n")
             .appendField(new Blockly.FieldImage("/images/blink.png", 50, 50, "*"));
 
         this.appendDummyInput()
