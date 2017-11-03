@@ -69,3 +69,15 @@ Blockly.Arduino['liquid_crystal_ic2_big_lcd_blink'] = function () {
 
     return this.getFieldValue('blink').toUpperCase() === 'YES' ? 'lcd.blink();\n' : 'lcd.noBlink();\n';
 };
+
+Blockly.Arduino['liquid_crystal_ic2_big_lcd_scroll_right'] = function () {
+    setUpLiquidCrystalI2CBigLCD();
+
+    return 'lcd.scrollDisplayRight(); \n';
+};
+
+Blockly.Arduino['liquid_crystal_ic2_big_lcd_scroll_left'] = function () {
+    setUpLiquidCrystalI2CBigLCD();
+
+    return 'lcd.scrollDisplayLeft(); \n';
+};

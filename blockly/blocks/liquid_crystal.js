@@ -144,7 +144,7 @@ Blockly.Blocks['liquid_crystal_ic2_big_lcd_blink'] = {
             .appendField(new Blockly.FieldImage("/images/blink.png", 50, 50, "*"));
 
         this.appendDummyInput()
-            .appendField('Back Light ')
+            .appendField('Blink ')
             .appendField(new Blockly.FieldDropdown([
                     ['Yes', 'YES'],
                     ['No', 'NO']
@@ -158,3 +158,35 @@ Blockly.Blocks['liquid_crystal_ic2_big_lcd_blink'] = {
         this.setHelpUrl("");
     }
 };
+
+Blockly.Blocks['liquid_crystal_ic2_big_lcd_scroll_right'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField("Big LCD - Scroll Right \n")
+            .appendField(new Blockly.FieldImage("/images/scroll-right.jpg", 50, 50, "*"));
+
+        this.setInputsInline(false);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(210);
+        this.setTooltip("Blinks the place where the cursor is.");
+        this.setHelpUrl("");
+    }
+};
+
+Blockly.Blocks['liquid_crystal_ic2_big_lcd_scroll_left'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField("Big LCD - Scroll Left \n")
+            .appendField(new Blockly.FieldImage("/images/scroll-left.jpg", 50, 50, "*"));
+
+        this.setInputsInline(false);
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(210);
+        this.setTooltip("Blinks the place where the cursor is.");
+        this.setHelpUrl("");
+    }
+};
+
+
