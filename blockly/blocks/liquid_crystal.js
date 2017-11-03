@@ -90,7 +90,7 @@ Blockly.Blocks['liquid_crystal_ic2_big_lcd_clear'] = {
 Blockly.Blocks['liquid_crystal_ic2_big_lcd_set_cursor'] = {
     init: function () {
         this.appendDummyInput()
-            .appendField("Big LCD - Prints To Screen \n")
+            .appendField("Big LCD - Set Position \n")
             .appendField(new Blockly.FieldImage("https://image.freepik.com/free-icon/move-action_318-30780.jpg", 50, 50, "*"));
 
 
@@ -117,7 +117,7 @@ Blockly.Blocks['liquid_crystal_ic2_big_lcd_set_cursor'] = {
 Blockly.Blocks['liquid_crystal_ic2_big_lcd_print'] = {
     init: function () {
         this.appendDummyInput()
-            .appendField("Big LCD - Sets Cursor \n")
+            .appendField("Big LCD - Print  \n")
             .appendField(new Blockly.FieldImage("http://images.clipartpanda.com/print-clipart-xcgoE9ddi.jpeg", 50, 50, "*"));
 
 
