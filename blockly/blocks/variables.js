@@ -104,7 +104,7 @@ Blockly.Blocks['variables_set'] = {
    */
   init: function() {
     this.jsonInit({
-      "message0": 'Set %1 of type %3 to %2',
+      "message0": 'Set %1 equal to %2',
       "args0": [
         {
           "type": "field_variable",
@@ -114,12 +114,7 @@ Blockly.Blocks['variables_set'] = {
         {
           "type": "input_value",
           "name": "VALUE"
-        },
-          {
-              "type": "field_dropdown",
-              "name": "DATA TYPE",
-              "options": VARIABLE_TYPES
-          }
+        }
       ],
       "previousStatement": null,
       "nextStatement": null,
@@ -150,23 +145,14 @@ Blockly.Blocks['variables_set'] = {
       this.setFieldValue(newName, 'VAR');
     }
   },
-  onchange : function() {
-      Blockly.Variables.setAllVariablesToNewDataType(this.getFieldValue('DATA TYPE'), this.getFieldValue('VAR'));
-  },
   contextMenuType_: 'variables_get',
   customContextMenu: Blockly.Blocks['variables_get'].customContextMenu
 };
 
-Blockly.Blocks['variables_global'] = {
-    /**
-     * Block for variable setter.
-     * @this Blockly.Block
-     */
-    init: function() {
-
-
+Blockly.Blocks['variables_create'] = {
+    init: function () {
         this.jsonInit({
-            "message0": 'Set %1 of type %3 to %2',
+            "message0": 'Create variable named %1 set to type %3 equal to %2',
             "args0": [
                 {
                     "type": "field_variable",
@@ -189,9 +175,67 @@ Blockly.Blocks['variables_global'] = {
             "tooltip": Blockly.Msg.VARIABLES_SET_TOOLTIP,
             "helpUrl": Blockly.Msg.VARIABLES_SET_HELPURL
         });
-        this.appendDummyInput()
-            .appendField("GLOBAL VARIABLE \n");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
 
+        this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
+    },
+    /**
+     * Return all variables referenced by this block.
+     * @return {!Array.<string>} List of variable names.
+     * @this Blockly.Block
+     */
+    getVars: function() {
+        return [this.getFieldValue('VAR')];
+    },
+    /**
+     * Notification that a variable is renaming.
+     * If the name matches one of this block's variables, rename it.
+     * @param {string} oldName Previous name of variable.
+     * @param {string} newName Renamed variable.
+     * @this Blockly.Block
+     */
+    renameVar: function(oldName, newName) {
+        if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
+            this.setFieldValue(newName, 'VAR');
+        }
+    },
+    contextMenuType_: 'variables_get',
+    customContextMenu: Blockly.Blocks['variables_get'].customContextMenu
+};
+
+Blockly.Blocks['variables_create_global'] = {
+    /**
+     * Block for variable setter.
+     * @this Blockly.Block
+     */
+    init: function() {
+
+
+        this.jsonInit({
+            "message0": 'Create global variable named %1 to type %3 equal to %2',
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "VAR",
+                    "variable": Blockly.Msg.VARIABLES_DEFAULT_NAME
+                },
+                {
+                    "type": "input_value",
+                    "name": "VALUE"
+                },
+                {
+                    "type": "field_dropdown",
+                    "name": "DATA TYPE",
+                    "options": VARIABLE_TYPES
+                }
+            ],
+            "previousStatement": null,
+            "nextStatement": null,
+            "colour": 231,
+            "tooltip": Blockly.Msg.VARIABLES_SET_TOOLTIP,
+            "helpUrl": Blockly.Msg.VARIABLES_SET_HELPURL
+        });
         this.setPreviousStatement(false, null);
         this.setNextStatement(false, null);
 
@@ -216,9 +260,6 @@ Blockly.Blocks['variables_global'] = {
         if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
             this.setFieldValue(newName, 'VAR');
         }
-    },
-    onchange : function() {
-        Blockly.Variables.setAllVariablesToNewDataType(this.getFieldValue('DATA TYPE'), this.getFieldValue('VAR'));
     },
     contextMenuType_: 'variables_get',
     customContextMenu: Blockly.Blocks['variables_get'].customContextMenu

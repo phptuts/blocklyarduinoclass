@@ -120,15 +120,6 @@ Blockly.Variables.allVariableAndDataType = function(root) {
     return variableList;
 };
 
-Blockly.Variables.setAllVariablesToNewDataType = function (dataType, name) {
-    var blocks = Blockly.mainWorkspace.getAllBlocks();
-    for (var x = 0; x < blocks.length; x++) {
-        if (blocks[x].getVars && blocks[x].getFieldValue('VAR') === name) {
-            blocks[x].setFieldValue(dataType, 'DATA TYPE');
-        }
-    }
-};
-
 
 /**
  * Find all instances of the specified variable and rename them.
@@ -173,8 +164,8 @@ Blockly.Variables.flyoutCategory = function(blocks, gaps, margin, workspace) {
     if (variableList[i] === null) {
       defaultVariable = (getBlock || setBlock).getVars()[0];
     } else {
-      getBlock && getBlock.setFieldValue(variableList[i], 'VAR');
-      setBlock && setBlock.setFieldValue(variableList[i], 'VAR');
+        getBlock && getBlock.setFieldValue(variableList[i], 'VAR');
+        setBlock && setBlock.setFieldValue(variableList[i], 'VAR');
     }
     setBlock && blocks.push(setBlock);
     getBlock && blocks.push(getBlock);

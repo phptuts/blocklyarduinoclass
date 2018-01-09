@@ -188,6 +188,36 @@ Blockly.Blocks['lists_create_with_container'] = {
   }
 };
 
+Blockly.Blocks['lists_variable'] = {
+    init: function() {
+        this.jsonInit({
+            "message0": 'Set %1 of type %3 to %2',
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "VAR",
+                    "variable": Blockly.Msg.VARIABLES_DEFAULT_NAME
+                },
+                {
+                    "type": "input_value",
+                    "name": "SIZE"
+                },
+                {
+                    "type": "field_dropdown",
+                    "name": "DATA TYPE",
+                    "options": VARIABLE_TYPES
+                }
+            ],
+            "previousStatement": null,
+            "nextStatement": null,
+            "colour": Blockly.Blocks.variables.HUE,
+            "tooltip": Blockly.Msg.VARIABLES_SET_TOOLTIP,
+            "helpUrl": Blockly.Msg.VARIABLES_SET_HELPURL,
+
+        });
+    }
+};
+
 Blockly.Blocks['lists_create_with_item'] = {
   /**
    * Mutator bolck for adding items.

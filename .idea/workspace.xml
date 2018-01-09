@@ -2,28 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9a43f1fb-adb3-4e70-b968-056742fac691" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/blockly/apps/blocklyduino/FileSaver.min.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/blockly/apps/blocklyduino/blockly_helper.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/blockly/apps/blocklyduino/spin.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockly/apps/blocklyduino/app.js" afterPath="$PROJECT_DIR$/blockly/apps/blocklyduino/app.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockly/apps/blocklyduino/index.html" afterPath="$PROJECT_DIR$/blockly/apps/blocklyduino/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockly/apps/blocklyduino/package-lock.json" afterPath="$PROJECT_DIR$/blockly/apps/blocklyduino/package-lock.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockly/apps/blocklyduino/package.json" afterPath="$PROJECT_DIR$/blockly/apps/blocklyduino/package.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockly/arduino_compressed.js" afterPath="$PROJECT_DIR$/blockly/arduino_compressed.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockly/blockly_compressed.js" afterPath="$PROJECT_DIR$/blockly/blockly_compressed.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockly/blockly_uncompressed.js" afterPath="$PROJECT_DIR$/blockly/blockly_uncompressed.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockly/blocks/base.js" afterPath="$PROJECT_DIR$/blockly/blocks/base.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockly/blocks/liquid_crystal.js" afterPath="$PROJECT_DIR$/blockly/blocks/liquid_crystal.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockly/blocks/lists.js" afterPath="$PROJECT_DIR$/blockly/blocks/lists.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockly/blocks/variables.js" afterPath="$PROJECT_DIR$/blockly/blocks/variables.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockly/blocks_compressed.js" afterPath="$PROJECT_DIR$/blockly/blocks_compressed.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockly/core/field_variable.js" afterPath="$PROJECT_DIR$/blockly/core/field_variable.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockly/core/variables.js" afterPath="$PROJECT_DIR$/blockly/core/variables.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockly/generators/arduino.js" afterPath="$PROJECT_DIR$/blockly/generators/arduino.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockly/generators/arduino/base.js" afterPath="$PROJECT_DIR$/blockly/generators/arduino/base.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockly/generators/arduino/liquid_crystal.js" afterPath="$PROJECT_DIR$/blockly/generators/arduino/liquid_crystal.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockly/generators/arduino/text.js" afterPath="$PROJECT_DIR$/blockly/generators/arduino/text.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockly/generators/arduino/variables.js" afterPath="$PROJECT_DIR$/blockly/generators/arduino/variables.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -38,12 +27,44 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="workspace.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/blockly/core/workspace.js">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/blockly/apps/blocklyduino/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="134">
+              <caret line="476" column="17" lean-forward="false" selection-start-line="476" selection-start-column="17" selection-end-line="476" selection-end-column="17" />
+              <folding>
+                <element signature="n#style#0;n#input#0;n#div#1;n#header#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#style#0;n#xml#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#category#0;n#xml#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#category#1;n#xml#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#category#2;n#xml#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#category#8;n#xml#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#category#9;n#xml#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#category#10;n#xml#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="lists.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/blockly/blocks/lists.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="538">
+              <caret line="193" column="48" lean-forward="false" selection-start-line="193" selection-start-column="25" selection-end-line="193" selection-end-column="48" />
+              <folding>
+                <element signature="e#1424#5282#0" expanded="false" />
+                <element signature="e#6677#7082#0" expanded="false" />
+                <element signature="e#7118#7698#0" expanded="false" />
+                <element signature="e#7734#8219#0" expanded="false" />
+                <element signature="e#8256#8751#0" expanded="false" />
+                <element signature="e#8788#9479#0" expanded="false" />
+                <element signature="e#9517#13637#0" expanded="false" />
+                <element signature="e#13675#16836#0" expanded="false" />
+                <element signature="e#16876#20615#0" expanded="false" />
+                <element signature="e#20650#22086#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -51,68 +72,8 @@
       <file leaf-file-name="variables.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blockly/core/variables.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="126" column="59" lean-forward="true" selection-start-line="126" selection-start-column="59" selection-end-line="126" selection-end-column="59" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="block.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/blockly/core/block.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="151">
-              <caret line="657" column="0" lean-forward="false" selection-start-line="657" selection-start-column="0" selection-end-line="657" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="field_variable.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/blockly/core/field_variable.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1500">
-              <caret line="169" column="36" lean-forward="false" selection-start-line="169" selection-start-column="22" selection-end-line="169" selection-end-column="36" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="liquid_crystal.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/blockly/generators/arduino/liquid_crystal.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="28" column="92" lean-forward="false" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="92" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="base.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/blockly/generators/arduino/base.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="142">
-              <caret line="74" column="7" lean-forward="false" selection-start-line="74" selection-start-column="7" selection-end-line="74" selection-end-column="7" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="variables.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/blockly/blocks/variables.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="303">
-              <caret line="221" column="6" lean-forward="false" selection-start-line="221" selection-start-column="6" selection-end-line="221" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="math.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/blockly/blocks/math.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="742">
-              <caret line="356" column="26" lean-forward="false" selection-start-line="356" selection-start-column="26" selection-end-line="356" selection-end-column="26" />
+            <state relative-caret-position="-189">
+              <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -121,21 +82,49 @@
       <file leaf-file-name="variables.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blockly/generators/arduino/variables.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="41" column="43" lean-forward="false" selection-start-line="41" selection-start-column="32" selection-end-line="41" selection-end-column="43" />
+            <state relative-caret-position="615">
+              <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="arduino.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="arduino.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/blockly/generators/arduino.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="112" column="53" lean-forward="false" selection-start-line="112" selection-start-column="53" selection-end-line="112" selection-end-column="53" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
+            <state relative-caret-position="160">
+              <caret line="102" column="67" lean-forward="false" selection-start-line="102" selection-start-column="67" selection-end-line="102" selection-end-column="67" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="names.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/blockly/core/names.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="73" column="31" lean-forward="false" selection-start-line="73" selection-start-column="24" selection-end-line="73" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="field_variable.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/blockly/core/field_variable.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="40">
+              <caret line="132" column="0" lean-forward="false" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="variables.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/blockly/blocks/variables.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="246">
+              <caret line="242" column="6" lean-forward="false" selection-start-line="242" selection-start-column="6" selection-end-line="242" selection-end-column="6" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -144,15 +133,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>tabon</find>
-      <find>menu</find>
-      <find>Spinner</find>
-      <find>tab_blocks</find>
-      <find>loadXMLFile</find>
-      <find>uploadCode</find>
-      <find>debugContinue</find>
-      <find>clearDebugBlocks</find>
-      <find>backup_blocks</find>
       <find>clearSerialMonitor</find>
       <find>toggleDebug</find>
       <find>save</find>
@@ -174,6 +154,15 @@
       <find>vara</find>
       <find>liquid_crystal_ic2_big_lcd</find>
       <find>NAME_TYPE</find>
+      <find>flyoutCategory</find>
+      <find>renameVariable</find>
+      <find>renameVar</find>
+      <find>%3</find>
+      <find>dropdownCreate</find>
+      <find>variables_create</find>
+      <find>New Variable</find>
+      <find>116px</find>
+      <find>variables_global</find>
     </findStrings>
     <replaceStrings>
       <replace>liquid_crystal_ic2_lcd</replace>
@@ -208,7 +197,6 @@
         <option value="$PROJECT_DIR$/blockly/generators/arduino/i2c_liquid_crystal.js" />
         <option value="$PROJECT_DIR$/blockly/arduino_compressed.js" />
         <option value="$PROJECT_DIR$/app.js" />
-        <option value="$PROJECT_DIR$/blockly/generators/arduino/variables.js" />
         <option value="$PROJECT_DIR$/blockly/core/block.js" />
         <option value="$PROJECT_DIR$/blockly/blocks/debug.js" />
         <option value="$PROJECT_DIR$/blockly/generators/arduino/debug.js" />
@@ -227,11 +215,12 @@
         <option value="$PROJECT_DIR$/blockly/generators/arduino/base.js" />
         <option value="$PROJECT_DIR$/blockly/generators/arduino/text.js" />
         <option value="$PROJECT_DIR$/blockly/blocks/lists.js" />
-        <option value="$PROJECT_DIR$/blockly/apps/blocklyduino/index.html" />
-        <option value="$PROJECT_DIR$/blockly/core/field_variable.js" />
-        <option value="$PROJECT_DIR$/blockly/generators/arduino.js" />
-        <option value="$PROJECT_DIR$/blockly/blocks/variables.js" />
         <option value="$PROJECT_DIR$/blockly/core/variables.js" />
+        <option value="$PROJECT_DIR$/blockly/core/field_variable.js" />
+        <option value="$PROJECT_DIR$/blockly/generators/arduino/variables.js" />
+        <option value="$PROJECT_DIR$/blockly/blocks/variables.js" />
+        <option value="$PROJECT_DIR$/blockly/apps/blocklyduino/index.html" />
+        <option value="$PROJECT_DIR$/blockly/generators/arduino.js" />
       </list>
     </option>
   </component>
@@ -247,7 +236,7 @@
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
-    <option name="width" value="1437" />
+    <option name="width" value="1440" />
     <option name="height" value="824" />
   </component>
   <component name="ProjectView">
@@ -363,55 +352,11 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="blocks" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BlocklyDuino" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BlocklyDuino" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blockly" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="apps" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="blocklyduino" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BlocklyDuino" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="BlocklyDuino" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blockly" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="apps" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="blocklyduino" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="images" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -566,22 +511,22 @@
       <workItem from="1509726537562" duration="1953000" />
       <workItem from="1509739666964" duration="235000" />
       <workItem from="1515190724542" duration="1510000" />
-      <workItem from="1515368610804" duration="35504000" />
+      <workItem from="1515368610804" duration="44343000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="121831000" />
+    <option name="totallyTimeSpent" value="130670000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1437" height="824" extended-state="6" />
-    <editor active="false" />
+    <frame x="0" y="23" width="1440" height="824" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24982603" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24930556" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3271523" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3271523" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -635,19 +580,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="6" />
+      <option name="time" value="7" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/start.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/blockly/build.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3795">
@@ -791,45 +728,45 @@
         <state relative-caret-position="142">
           <caret line="81" column="46" lean-forward="false" selection-start-line="81" selection-start-column="46" selection-end-line="81" selection-end-column="46" />
           <folding>
-            <marker date="1515486884531" expanded="true" signature="35639:35845" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="48981:49206" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="53238:53343" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="55906:56235" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="56747:57022" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="57918:57970" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="67120:67700" ph="{&quot;helpUrl&quot;: &quot;http://www.arduino.cc/playground/ComponentLib/servo&quot;...}" />
-            <marker date="1515486884531" expanded="true" signature="67198:67699" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="69271:69858" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="69287:69857" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="69888:70501" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="69904:70500" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="71505:72170" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="71521:72169" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="72200:73371" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="72216:72841" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="73405:74134" ph="{&quot;customContextMenu&quot;: Blockly.Blocks.controls_for.customContextMenu...}" />
-            <marker date="1515486884531" expanded="true" signature="73421:73911" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="74176:75062" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="74192:74739" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="74574:74737" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="74611:74733" ph="{&quot;BREAK&quot;: Blockly.Msg.CONTROLS_FLOW_STATEMENTS_TOOLTIP_BREAK...}" />
-            <marker date="1515486884531" expanded="true" signature="75137:76176" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="76203:77922" ph="{&quot;newQuote_&quot;: Blockly.Blocks.text.newQuote_...}" />
-            <marker date="1515486884531" expanded="true" signature="76627:76702" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="77010:77266" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="77505:77881" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="78554:79190" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="79820:80435" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="79836:80434" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="80464:81920" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="80480:81058" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="81304:81919" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="81955:83974" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="81971:82892" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="82917:83115" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="83274:83973" ph="{...}" />
-            <marker date="1515486884531" expanded="true" signature="85263:85962" ph="{&quot;newQuote_&quot;: Blockly.Blocks.text.newQuote_...}" />
-            <marker date="1515486884531" expanded="true" signature="85279:85921" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="35639:35845" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="49921:50146" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="54178:54283" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="56846:57175" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="57687:57962" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="58858:58910" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="68060:68640" ph="{&quot;helpUrl&quot;: &quot;http://www.arduino.cc/playground/ComponentLib/servo&quot;...}" />
+            <marker date="1515538945646" expanded="true" signature="68138:68639" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="70211:70798" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="70227:70797" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="70828:71441" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="70844:71440" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="72445:73110" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="72461:73109" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="73140:74311" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="73156:73781" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="74345:75074" ph="{&quot;customContextMenu&quot;: Blockly.Blocks.controls_for.customContextMenu...}" />
+            <marker date="1515538945646" expanded="true" signature="74361:74851" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="75116:76002" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="75132:75679" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="75514:75677" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="75551:75673" ph="{&quot;BREAK&quot;: Blockly.Msg.CONTROLS_FLOW_STATEMENTS_TOOLTIP_BREAK...}" />
+            <marker date="1515538945646" expanded="true" signature="76077:77116" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="77143:78862" ph="{&quot;newQuote_&quot;: Blockly.Blocks.text.newQuote_...}" />
+            <marker date="1515538945646" expanded="true" signature="77567:77642" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="77950:78206" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="78445:78821" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="79494:80130" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="80760:81375" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="80776:81374" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="81404:82860" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="81420:81998" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="82244:82859" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="82895:84914" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="82911:83832" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="83857:84055" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="84214:84913" ph="{...}" />
+            <marker date="1515538945646" expanded="true" signature="86203:86902" ph="{&quot;newQuote_&quot;: Blockly.Blocks.text.newQuote_...}" />
+            <marker date="1515538945646" expanded="true" signature="86219:86861" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -944,21 +881,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blockly/blocks/lists.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="445" column="32" lean-forward="false" selection-start-line="445" selection-start-column="32" selection-end-line="445" selection-end-column="32" />
-          <folding>
-            <element signature="e#1424#5282#0" expanded="false" />
-            <element signature="e#5333#5724#0" expanded="false" />
-            <element signature="e#5770#6175#0" expanded="false" />
-            <element signature="e#6211#6791#0" expanded="false" />
-            <element signature="e#15969#19708#0" expanded="false" />
-            <element signature="e#19743#21179#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/blockly/core/flyout.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="805">
@@ -999,68 +921,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blockly/apps/blocklyduino/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="320" column="44" lean-forward="false" selection-start-line="320" selection-start-column="44" selection-end-line="320" selection-end-column="44" />
-          <folding>
-            <element signature="n#style#0;n#head#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#input#0;n#div#1;n#header#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#xml#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#category#0;n#xml#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#category#1;n#xml#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#category#2;n#xml#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#category#9;n#xml#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#category#10;n#xml#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#category#11;n#xml#0;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/blockly/core/workspace.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/blockly/blockly_compressed.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="1212" column="0" lean-forward="false" selection-start-line="1212" selection-start-column="0" selection-end-line="1212" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/blockly/core/names.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="141" column="41" lean-forward="true" selection-start-line="141" selection-start-column="41" selection-end-line="141" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/blockly/generators/arduino.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="112" column="53" lean-forward="false" selection-start-line="112" selection-start-column="53" selection-end-line="112" selection-end-column="53" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/blockly/generators/arduino/variables.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="41" column="43" lean-forward="false" selection-start-line="41" selection-start-column="32" selection-end-line="41" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/blockly/blocks/math.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="742">
@@ -1073,14 +933,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="142">
           <caret line="74" column="7" lean-forward="false" selection-start-line="74" selection-start-column="7" selection-end-line="74" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/blockly/blocks/variables.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="221" column="6" lean-forward="false" selection-start-line="221" selection-start-column="6" selection-end-line="221" selection-end-column="6" />
           <folding />
         </state>
       </provider>
@@ -1101,18 +953,112 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blockly/core/variables.js">
+    <entry file="file://$PROJECT_DIR$/blockly/core/workspace.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="126" column="59" lean-forward="true" selection-start-line="126" selection-start-column="59" selection-end-line="126" selection-end-column="59" />
+        <state relative-caret-position="310">
+          <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blockly/blockly_compressed.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="1214" column="0" lean-forward="false" selection-start-line="1214" selection-start-column="0" selection-end-line="1214" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blockly/blocks/lists.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="538">
+          <caret line="193" column="48" lean-forward="false" selection-start-line="193" selection-start-column="25" selection-end-line="193" selection-end-column="48" />
+          <folding>
+            <element signature="e#1424#5282#0" expanded="false" />
+            <element signature="e#6677#7082#0" expanded="false" />
+            <element signature="e#7118#7698#0" expanded="false" />
+            <element signature="e#7734#8219#0" expanded="false" />
+            <element signature="e#8256#8751#0" expanded="false" />
+            <element signature="e#8788#9479#0" expanded="false" />
+            <element signature="e#9517#13637#0" expanded="false" />
+            <element signature="e#13675#16836#0" expanded="false" />
+            <element signature="e#16876#20615#0" expanded="false" />
+            <element signature="e#20650#22086#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blockly/msg/js/ms.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="353" column="0" lean-forward="false" selection-start-line="353" selection-start-column="0" selection-end-line="353" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/blockly/core/field_variable.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1500">
-          <caret line="169" column="36" lean-forward="false" selection-start-line="169" selection-start-column="22" selection-end-line="169" selection-end-column="36" />
+        <state relative-caret-position="40">
+          <caret line="132" column="0" lean-forward="false" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blockly/blocks/variables.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="242" column="6" lean-forward="false" selection-start-line="242" selection-start-column="6" selection-end-line="242" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blockly/apps/blocklyduino/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="476" column="17" lean-forward="false" selection-start-line="476" selection-start-column="17" selection-end-line="476" selection-end-column="17" />
+          <folding>
+            <element signature="n#style#0;n#input#0;n#div#1;n#header#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#div#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#xml#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#category#0;n#xml#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#category#1;n#xml#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#category#2;n#xml#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#category#8;n#xml#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#category#9;n#xml#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#category#10;n#xml#0;n#body#0;n#html#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blockly/core/names.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="73" column="31" lean-forward="false" selection-start-line="73" selection-start-column="24" selection-end-line="73" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blockly/core/variables.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-189">
+          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blockly/generators/arduino/variables.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="615">
+          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blockly/generators/arduino.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="102" column="67" lean-forward="false" selection-start-line="102" selection-start-column="67" selection-end-line="102" selection-end-column="67" />
           <folding />
         </state>
       </provider>

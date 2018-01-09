@@ -104,14 +104,15 @@ Blockly.Arduino.init = function(workspace) {
 	} else {
 		Blockly.Arduino.variableDB_.reset();
 	}
+    var defvars = [];
 
-	var defvars = [];
-	var variables = Blockly.Variables.allVariableAndDataType(workspace);
-	for (var x = 0; x < variables.length; x++) {
-		defvars[x] = variables[x].type + ' ' +
-				Blockly.Arduino.variableDB_.getName(variables[x].name,
-				Blockly.Variables.NAME_TYPE) + ';\n';
-	}
+    var blocks = Blockly.mainWorkspace.getAllBlocks();
+	for (var i = 0; i < blocks.length; i += 1) {
+	  if (blocks[i].type === 'variables_create' || blocks[i].type === 'variables_create_global') {
+          defvars[i] = blocks[i].getFieldValue('DATA TYPE') + ' ' +
+              Blockly.Arduino.variableDB_.getName(blocks[i].getFieldValue('VAR'), Blockly.Variables.NAME_TYPE) + ';\n';
+      }
+    }
 	Blockly.Arduino.definitions_['variables'] = defvars.join('\n');
 };
 

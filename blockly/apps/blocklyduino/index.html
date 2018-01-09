@@ -474,7 +474,7 @@ function loadFileClick() {
     }
 
     #tabs div {
-        width: 116px;
+        width: 95px;
         height: 25px;
         display: inline-block;
     }
@@ -576,7 +576,7 @@ function loadFileClick() {
       </block>
     </category>
     <category name="Lists">
-      <block type="lists_create_with"></block>
+
       <block type="lists_getIndex"></block>
       <block type="lists_setIndex"></block>
       <block type="lists_length"></block>
@@ -588,11 +588,13 @@ function loadFileClick() {
       <block type="text"></block>
       <block type="text_join"></block>
     </category>
-    <category name="Variables" custom="VARIABLE"></category>
-    <category name="Global Variables" >
-      <block type="variables_global"></block>
-
+    <category name="Variables" >
+      <block type="variables_create"></block>
+      <block type="variables_create_global"></block>
+      <block type="variables_get"></block>
+      <block type="variables_set"></block>
     </category>
+
     <category name="Debug" >
       <block type="debug"></block>
 
@@ -641,47 +643,6 @@ function loadFileClick() {
       </block>
       <block type="servo_read_degrees"></block>
     </category>
-    <!--<category name="Grove Analog">-->
-      <!--<block type="grove_rotary_angle"></block>-->
-      <!--<block type="grove_temporature_sensor"></block>-->
-      <!--<block type="grove_sound_sensor"></block>-->
-      <!--<block type="grove_thumb_joystick"></block>-->
-    <!--</category>-->
-    <!--<category name="Grove">-->
-      <!--<block type="grove_led"></block>-->
-      <!--<block type="grove_button"></block>-->
-      <!--<block type="grove_relay"></block>-->
-      <!--<block type="grove_tilt_switch"></block>-->
-      <!--<block type="grove_piezo_buzzer"></block>-->
-      <!--<block type="grove_pir_motion_sensor"></block>-->
-      <!--<block type="grove_line_finder"></block>-->
-      <!--<block type="grove_rgb_led"></block>-->
-      <!--<block type="grove_ultrasonic_ranger"></block>-->
-    <!--</category>-->
-    <!--<category name="Grove LCD">-->
-      <!--<block type="grove_serial_lcd_print">-->
-        <!--<value name="TEXT">-->
-          <!--<block type="text">-->
-            <!--<field name="TEXT"></field>-->
-          <!--</block>-->
-        <!--</value>-->
-        <!--<value name="TEXT2">-->
-          <!--<block type="text">-->
-            <!--<field name="TEXT"></field>-->
-          <!--</block>-->
-        <!--</value>-->
-        <!--<value name="DELAY_TIME">-->
-          <!--<block type="math_number">-->
-            <!--<field name="NUM">1000</field>-->
-          <!--</block>-->
-        <!--</value>-->
-      <!--</block>-->
-      <!--<block type="grove_serial_lcd_power"></block>-->
-      <!--<block type="grove_serial_lcd_effect"></block>-->
-    <!--</category>-->
-    <!--<category name="Grove Motor">-->
-      <!--<block type="grove_motor_shield"></block>-->
-    <!--</category>-->
     <category name="LCD Screens">
 
       <block type="liquid_crystal_ic2_lcd_setup">

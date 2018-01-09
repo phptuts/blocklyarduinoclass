@@ -130,7 +130,6 @@ Blockly.FieldVariable.prototype.setValue = function(text) {
 
 /**
  * Return a sorted list of variable names for variable dropdown menus.
- * Include a special option at the end for creating a new variable name.
  * @return {!Array.<string>} Array of variable names.
  * @this {!Blockly.FieldVariable}
  */
@@ -147,7 +146,6 @@ Blockly.FieldVariable.dropdownCreate = function() {
   }
   variableList.sort(goog.string.caseInsensitiveCompare);
   variableList.push(Blockly.Msg.RENAME_VARIABLE);
-  variableList.push(Blockly.Msg.NEW_VARIABLE);
   // Variables are not language-specific, use the name as both the user-facing
   // text and the internal representation.
   var options = [];
