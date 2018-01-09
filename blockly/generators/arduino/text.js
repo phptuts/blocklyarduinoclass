@@ -33,3 +33,27 @@ Blockly.Arduino.text = function() {
   var code = Blockly.Arduino.quote_(this.getFieldValue('TEXT'));
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
+
+Blockly.Arduino.text_join = function (block) {
+
+    var result = '';
+    for (var i = 0; i < block.inputList.length; i += 1) {
+
+        if (block.getChildren()[i].type == 'text') {
+            result += '"';
+            result += Blockly.Arduino.valueToCode(block, block.inputList[i].name, Blockly.Arduino.ORDER_ATOMIC).replace(/"/g, '').toString();
+            result += '"';
+        }
+        else {
+            result += 'String(' +
+                Blockly.Arduino.valueToCode(block, block.inputList[i].name, Blockly.Arduino.ORDER_ATOMIC).replace(/"/g, '').toString()
+                + ')';
+        }
+
+        if (i < (block.inputList.length -1)) {
+            result += ' + ';
+        }
+    }
+
+    return [result, Blockly.Arduino.ORDER_ATOMIC];
+}

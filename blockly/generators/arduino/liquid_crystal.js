@@ -2,17 +2,30 @@ goog.provide('Blockly.Arduino.liquid_crystal');
 
 goog.require('Blockly.Arduino');
 
-function setUpLiquidCrystalI2CBigLCD() {
+var numberOfRows = 4;
+var numberOfColumns = 20;
+var memoryAddressLCDType = '0x3F';
+
+function setUpI2CLiquidCrystal() {
     Blockly.Arduino.definitions_['define_wire'] = '#include <Wire.h>\n';
     Blockly.Arduino.definitions_['define_liquid_crystal_i2c_big'] = '#include <LiquidCrystal_I2C.h>\n';
-    Blockly.Arduino.definitions_['liquid_crystal_ic2_big_lcd_object'] = 'LiquidCrystal_I2C lcd(0x3F, 4, 20);';
+    Blockly.Arduino.definitions_['liquid_crystal_ic2_lcd_object'] = 
+        'LiquidCrystal_I2C lcd(' + memoryAddressLCDType + ','+ numberOfRows + ',' + numberOfColumns + ');';
 
-    Blockly.Arduino.setups_['liquid_crystal_ic2_big_lcd'] = 'lcd.init();\n'  + 'lcd.backlight(); \n';
+    Blockly.Arduino.setups_['liquid_crystal_ic2_lcd'] = 'lcd.init();\n'  + 'lcd.backlight(); \n';
 }
 
-Blockly.Arduino['liquid_crystal_ic2_big_lcd'] = function(block) {
+Blockly.Arduino['liquid_crystal_ic2_lcd_setup'] = function(block) {
+    numberOfRows = Blockly.Arduino.valueToCode(block, 'Number of Rows', Blockly.Arduino.ORDER_ATOMIC);
+    numberOfColumns = Blockly.Arduino.valueToCode(block, 'Number of Columns', Blockly.Arduino.ORDER_ATOMIC);
+    memoryAddressLCDType = this.getFieldValue('memory address lcd type').toUpperCase();
+    setUpI2CLiquidCrystal();
+    return '';
+};
 
-    setUpLiquidCrystalI2CBigLCD();
+Blockly.Arduino['liquid_crystal_ic2_lcd'] = function(block) {
+
+    setUpI2CLiquidCrystal();
     var textRow1 = Blockly.Arduino.valueToCode(block, 'Row 1', Blockly.Arduino.ORDER_ATOMIC);
     var textRow2 = Blockly.Arduino.valueToCode(block, 'Row 2', Blockly.Arduino.ORDER_ATOMIC);
     var textRow3 = Blockly.Arduino.valueToCode(block, 'Row 3', Blockly.Arduino.ORDER_ATOMIC);
@@ -33,51 +46,50 @@ Blockly.Arduino['liquid_crystal_ic2_big_lcd'] = function(block) {
         + 'lcd.clear(); \n';
 };
 
-Blockly.Arduino['liquid_crystal_ic2_big_lcd_backlight'] = function() {
+Blockly.Arduino['liquid_crystal_ic2_lcd_backlight'] = function() {
 
-    setUpLiquidCrystalI2CBigLCD();
+    setUpI2CLiquidCrystal();
 
     return this.getFieldValue('backlight').toUpperCase() === 'ON' ? 'lcd.backlight();\n' : 'lcd.noBacklight();\n';
 };
 
-Blockly.Arduino['liquid_crystal_ic2_big_lcd_clear'] = function () {
-    setUpLiquidCrystalI2CBigLCD();
+Blockly.Arduino['liquid_crystal_ic2_lcd_clear'] = function () {
+    setUpI2CLiquidCrystal();
 
     return 'lcd.clear();\n';
 };
 
-Blockly.Arduino['liquid_crystal_ic2_big_lcd_set_cursor'] = function (block) {
-   setUpLiquidCrystalI2CBigLCD();
+Blockly.Arduino['liquid_crystal_ic2_lcd_set_cursor'] = function (block) {
+   setUpI2CLiquidCrystal();
 
     var row = Blockly.Arduino.valueToCode(block, 'Row', Blockly.Arduino.ORDER_ATOMIC);
     var column = Blockly.Arduino.valueToCode(block, 'Column', Blockly.Arduino.ORDER_ATOMIC);
 
-
     return 'lcd.setCursor(' + column +',' + row + '); \n';
 };
 
-Blockly.Arduino['liquid_crystal_ic2_big_lcd_print'] = function (block) {
-    setUpLiquidCrystalI2CBigLCD();
+Blockly.Arduino['liquid_crystal_ic2_lcd_print'] = function (block) {
+    setUpI2CLiquidCrystal();
 
     var message = Blockly.Arduino.valueToCode(block, 'Print Message', Blockly.Arduino.ORDER_ATOMIC);
 
     return 'lcd.print(' + message + '); \n';
 };
 
-Blockly.Arduino['liquid_crystal_ic2_big_lcd_blink'] = function () {
-    setUpLiquidCrystalI2CBigLCD();
+Blockly.Arduino['liquid_crystal_ic2_lcd_blink'] = function () {
+    setUpI2CLiquidCrystal();
 
     return this.getFieldValue('blink').toUpperCase() === 'YES' ? 'lcd.blink();\n' : 'lcd.noBlink();\n';
 };
 
-Blockly.Arduino['liquid_crystal_ic2_big_lcd_scroll_right'] = function () {
-    setUpLiquidCrystalI2CBigLCD();
+Blockly.Arduino['liquid_crystal_ic2_lcd_scroll_right'] = function () {
+    setUpI2CLiquidCrystal();
 
     return 'lcd.scrollDisplayRight(); \n';
 };
 
-Blockly.Arduino['liquid_crystal_ic2_big_lcd_scroll_left'] = function () {
-    setUpLiquidCrystalI2CBigLCD();
+Blockly.Arduino['liquid_crystal_ic2_lcd_scroll_left'] = function () {
+    setUpI2CLiquidCrystal();
 
     return 'lcd.scrollDisplayLeft(); \n';
 };

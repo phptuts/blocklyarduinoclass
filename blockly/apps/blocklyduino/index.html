@@ -7,9 +7,7 @@
   <script type="text/javascript" src="blocks/arduino_compressed.js"></script>
   <script type="text/javascript" src="msg/js/en.js"></script>
   <script type="text/javascript" src="public/Blob.js"></script>
-  <script type="text/javascript" src="public/spin.js"></script>
-  <script type="text/javascript" src="public/FileSaver.min.js"></script>
-  <script type="text/javascript" src="public/blockly_helper.js"></script>
+  <script type="text/javascript" src="library/FileSaver.min.js"></script>
   <script type="text/javascript" src="library/socket.io.js"></script>
 
   <script>
@@ -20,8 +18,49 @@
  */
 var TABS_ = ['blocks', 'arduino', 'xml'];
 
-var selected = 'blocks';
+/**
+ * INITIALIZATION
+ */
 
+
+/**
+ * Initialize Blockly.  Called on page load.
+ */
+function init() {
+
+    window.addEventListener('resize', resizeListener, false);
+    // Restore saved blocks in a separate thread so that subsequent
+    // initialization is not affected from a failed load.
+    window.setTimeout(restoreBlocksListener, 0);
+    // Hook a save function onto unload.
+    window.addEventListener('unload', backupBlocksListener);
+
+
+    // Init load event.
+    var loadInput = document.getElementById('load');
+    loadInput.addEventListener('change', loadXMLArduinoFileChangeListener, false);
+
+    var toolbox = document.getElementById('toolbox');
+    Blockly.inject(document.getElementById('content_blocks'),
+        {grid:
+            {spacing: 25,
+                length: 3,
+                colour: '#ccc',
+                snap: true},
+            media: '../../media/',
+            toolbox: toolbox});
+
+    selectWorkSpaceShown();
+}
+
+
+/**
+ * SOCKETS
+ */
+
+/**
+ * Code that hooks up the hooks sockets
+ */
 var socket = io.connect(':3000');
 socket.on('connection', function (socket) {
     console.log('socket connectted');
@@ -41,7 +80,7 @@ socket.on('usb-ports', function (usbPorts) {
 
 socket.on('serial-monitor', function(data) {
     var div = document.querySelector('#text_from_serial_monitor');
-    div.innerHTML += data;
+    div.innerHTML = div.innerHTML + data;
     console.log(data);
 });
 
@@ -67,145 +106,49 @@ socket.on('debug-block', function (blockNumber) {
     }
 });
 
+
+
+/***
+ * HELPERS
+ */
+
 /**
  * Switch the visible pane when a tab is clicked.
- * @param {string} clickedName Name of tab clicked.
+ * @param {string} selectedArea Name of tab clicked.
  */
-function tabClick(clickedName) {
-  // If the XML tab was open, save and render the content.
-  if (document.getElementById('tab_xml').className == 'tabon') {
-    var xmlTextarea = document.getElementById('content_xml');
-    var xmlText = xmlTextarea.value;
-    var xmlDom = null;
-    try {
-      xmlDom = Blockly.Xml.textToDom(xmlText);
-    } catch (e) {
-      var q =
-          window.confirm('Error parsing XML:\n' + e + '\n\nAbandon changes?');
-      if (!q) {
-        // Leave the user on the XML tab.
-        return;
-      }
-    }
-    if (xmlDom) {
-      Blockly.mainWorkspace.clear();
-      Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xmlDom);
-    }
-  }
-
-  if (document.getElementById('tab_blocks').className == 'tabon') {
-    Blockly.mainWorkspace.setVisible(false);
-  }
-  // Deselect all tabs and hide all panes.
-  for (var i = 0; i < TABS_.length; i++) {
-    var name = TABS_[i];
-    document.getElementById('tab_' + name).className = 'taboff';
-    document.getElementById('content_' + name).style.visibility = 'hidden';
-  }
-
- // Select the active tab.
-  selected = clickedName;
-  document.getElementById('tab_' + clickedName).className = 'tabon';
-  // Show the selected pane.
-  document.getElementById('content_' + clickedName).style.visibility =
-      'visible';
-  renderContent();
-  if (clickedName == 'blocks') {
-    Blockly.mainWorkspace.setVisible(true);
-  }
-  Blockly.fireUiEvent(window, 'resize');
-}
-
-/**
- * Populate the currently selected pane with content generated from the blocks.
- */
-function renderContent() {
-  var content = document.getElementById('content_' + selected);
-  // Initialize the pane.
-  if (content.id == 'content_blocks') {
-    // If the workspace was changed by the XML tab, Firefox will have performed
-    // an incomplete rendering due to Blockly being invisible.  Rerender.
-    Blockly.mainWorkspace.render();
-  } else if (content.id == 'content_xml') {
-    var xmlTextarea = document.getElementById('content_xml');
-    var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
-    var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
-    xmlTextarea.value = xmlText;
-    xmlTextarea.focus();
-  } else if (content.id == 'content_arduino') {
-    //content.innerHTML = Blockly.Arduino.workspaceToCode();
-    var arduinoTextarea = document.getElementById('content_arduino');
-    arduinoTextarea.value = Blockly.Arduino.workspaceToCode();
-    arduinoTextarea.focus();
-  }
-}
-
-/**
- * Compute the absolute coordinates and dimensions of an HTML element.
- * @param {!Element} element Element to match.
- * @return {!Object} Contains height, width, x, and y properties.
- * @private
- */
-function getBBox_(element) {
-  var height = element.offsetHeight;
-  var width = element.offsetWidth;
-  var x = 0;
-  var y = 0;
-  do {
-    x += element.offsetLeft;
-    y += element.offsetTop;
-    element = element.offsetParent;
-  } while (element);
-  return {
-    height: height,
-    width: width,
-    x: x,
-    y: y
-  };
-}
-
-/**
- * Initialize Blockly.  Called on page load.
- */
-function init() {
-  //window.onbeforeunload = function() {
-  //  return 'Leaving this page will result in the loss of your work.';
-  //};
-
-  var container = document.getElementById('content_area');
-  var onresize = function(e) {
-    var bBox = getBBox_(container);
+function selectWorkSpaceShown(selectedArea = 'blocks') {
     for (var i = 0; i < TABS_.length; i++) {
-      var el = document.getElementById('content_' + TABS_[i]);
-      el.style.top = bBox.y + 'px';
-      el.style.left = bBox.x + 'px';
-      // Height and width need to be set, read back, then set again to
-      // compensate for scrollbars.
-      el.style.height = bBox.height + 'px';
-      el.style.height = (2 * bBox.height - el.offsetHeight) + 'px';
-      el.style.width = bBox.width + 'px';
-      el.style.width = (2 * bBox.width - el.offsetWidth) + 'px';
+        var name = TABS_[i];
+        document.getElementById('tab_' + name).className = 'taboff';
+        document.getElementById('content_' + name).style.visibility = 'hidden';
     }
-    // Make the 'Blocks' tab line up with the toolbox.
-    if (Blockly.mainWorkspace.toolbox_.width) {
-      document.getElementById('tab_blocks').style.minWidth =
-          (Blockly.mainWorkspace.toolbox_.width - 38) + 'px';
-          // Account for the 19 pixel margin and on each side.
+
+    document.getElementById('tab_' + selectedArea).className = 'tabon';
+    document.getElementById('content_' + selectedArea).style.visibility = 'visible';
+    renderContent(selectedArea);
+}
+
+/**
+ * Populate the currently  pane with content generated from the blocks.
+ */
+function renderContent(selectedArea = 'blocks') {
+    Blockly.mainWorkspace.setVisible(false);
+    // Initialize the pane.
+    if (selectedArea == 'blocks') {
+        Blockly.mainWorkspace.setVisible(true);
+        // If the workspace was changed by the XML tab, Firefox will have performed
+        // an incomplete rendering due to Blockly being invisible.  Rerender.
+        Blockly.mainWorkspace.render();
+    } else if (selectedArea == 'xml') {
+        var xmlTextArea = document.getElementById('content_xml');
+        var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
+        xmlTextArea.value = Blockly.Xml.domToPrettyText(xmlDom);
+        xmlTextArea.focus();
+    } else if (selectedArea == 'arduino') {
+        var arduinoTextArea = document.getElementById('content_arduino');
+        arduinoTextArea.value = Blockly.Arduino.workspaceToCode();
+        arduinoTextArea.focus();
     }
-  };
-  window.addEventListener('resize', onresize, false);
-
-  var toolbox = document.getElementById('toolbox');
-  Blockly.inject(document.getElementById('content_blocks'),
-      {grid:
-          {spacing: 25,
-           length: 3,
-           colour: '#ccc',
-           snap: true},
-       media: '../../media/',
-       toolbox: toolbox});
-
-  auto_save_and_restore_blocks();
 }
 
 /**
@@ -218,9 +161,122 @@ function isArduino(port) {
 }
 
 /**
- * Toggles the visiblity of the serial monitor
+ * This upload the code to the node server
  */
-function toggleDebug() {
+function uploadCode(code) {
+
+    document.querySelector('#text_from_serial_monitor').innerHTML = '';
+    var arduinoUSBPort = document.querySelector('#com-ports').value;
+    var request = new XMLHttpRequest();
+
+    request.open("POST", "http://127.0.0.1:3000/upload-code/" + arduinoUSBPort, true);
+    request.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
+    request.send(code);
+}
+
+/**
+ * This goes through all the debug blocks and clears them out
+ */
+function clearDebugBlocks() {
+    var blocks = Blockly.mainWorkspace.getAllBlocks();
+    Blockly.selected.unselect();
+    for (var i = 0; i < blocks.length; i += 1) {
+        if (blocks[i].type === 'debug') {
+            blocks[i].setColour(210);
+        }
+    }
+}
+
+/**
+ * Event Listener Function
+ */
+
+
+/**
+ * Load blocks from local file.
+ */
+function loadXMLArduinoFileChangeListener(event) {
+    var files = event.target.files;
+    // Only allow uploading one file.
+    if (files.length != 1) {
+        return;
+    }
+
+    // FileReader
+    var reader = new FileReader();
+    reader.onloadend = function(event) {
+        var target = event.target;
+        // 2 == FileReader.DONE
+        if (target.readyState == 2) {
+            try {
+                var xml = Blockly.Xml.textToDom(target.result);
+            } catch (e) {
+                alert('Error parsing XML:\n' + e);
+                return;
+            }
+            var count = Blockly.mainWorkspace.getAllBlocks().length;
+            if (count && confirm('Replace existing blocks?\n"Cancel" will merge.')) {
+                Blockly.mainWorkspace.clear();
+            }
+            Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
+        }
+        // Reset value of input after loading because Chrome will not fire
+        // a 'change' event if the same file is loaded again.
+        document.getElementById('load').value = '';
+    };
+    reader.readAsText(files[0]);
+}
+
+
+/**
+ * Backup code blocks to localStorage. Used in unload window event
+ */
+function backupBlocksListener() {
+    if ('localStorage' in window) {
+        var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
+        window.localStorage.setItem('arduino', Blockly.Xml.domToText(xml));
+    }
+}
+
+/**
+ * Restore code blocks from localStorage.
+ */
+function restoreBlocksListener() {
+    if ('localStorage' in window && window.localStorage.arduino) {
+        var xml = Blockly.Xml.textToDom(window.localStorage.arduino);
+        Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xml);
+    }
+}
+
+/**
+ * Controls the resizing
+ */
+function resizeListener() {
+    var body = document.getElementsByTagName('body')[0];
+    for (var i = 0; i < TABS_.length; i++) {
+        var el = document.getElementById('content_' + TABS_[i]);
+        el.style.top = document.getElementById('menu').offsetHeight;
+        el.style.left = '0px';
+        // Height and width need to be set, read back, then set again to
+        // compensate for scrollbars.
+        el.style.height = body.offsetHeight  + 'px';
+        // This done to see the trash can
+        el.style.height = (2 * body.offsetHeight - el.offsetHeight - 60) + 'px';
+        el.style.width = body.offsetWidth + 'px';
+        el.style.width = (2 * body.offsetWidth - el.offsetWidth) + 'px';
+    }
+};
+
+
+/**
+ * CLICK LISTENERS
+ */
+
+
+/**
+ * Toggles the visibility of the serial monitor
+ */
+function toggleDebugClick() {
     var debugElement = document.querySelector('#content_serial_monitor');
     var contentBlock = document.querySelector('#content_blocks');
     if (debugElement.style.display === 'none') {
@@ -232,10 +288,88 @@ function toggleDebug() {
     }
 }
 
-function clearSerialMonitor() {
+/**
+ * Clears out the serial monitor
+ */
+function clearSerialMonitorClick() {
     var debugElement = document.querySelector('#content_serial_monitor pre');
     debugElement.innerHTML = '';
 }
+
+/**
+ * Save blocks to local file.
+ * better include Blob and FileSaver for browser compatibility
+ */
+function saveClick() {
+    var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
+    var data = Blockly.Xml.domToText(xml);
+    var fileName = window.prompt('What would you like to name your file?', 'BlocklyDuino');
+    // Store data in blob.
+    // var builder = new BlobBuilder();
+    // builder.append(data);
+    // saveAs(builder.getBlob('text/plain;charset=utf-8'), 'blockduino.xml');
+    if(fileName){
+        var blob = new Blob([data], {type: 'text/xml'});
+        saveAs(blob, fileName + ".xml");
+    }
+}
+
+/**
+ * Discard all blocks from the workspace.
+ */
+function discardClick() {
+    var count = Blockly.mainWorkspace.getAllBlocks().length;
+    if (count < 2 || window.confirm('Delete all ' + count + ' blocks?')) {
+        Blockly.mainWorkspace.clear();
+        renderContent();
+    }
+}
+
+/**
+ * This sends a request to the node server to continue
+ */
+function debugContinueClick() {
+    clearDebugBlocks();
+    var request = new XMLHttpRequest();
+
+    request.open('GET', 'http://127.0.0.1:3000/continue', true);
+    request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.responseText == 'serial-port-not-there') {
+            alert('There was an error connecting with your arduino please re upload the program.');
+        }
+    };
+    request.send();
+
+}
+
+/**
+ * This uploads the code created by the blocks to the arduino
+ */
+function uploadClick() {
+    uploadCode(Blockly.Arduino.workspaceToCode());
+}
+
+/**
+ * This uploads a blank sketch to the arduino
+ */
+function resetClick() {
+    uploadCode("void setup() {} void loop() {}");
+}
+
+/**
+ * This changes the work space
+ */
+function tabClick(selectedAreaName) {
+    selectWorkSpaceShown(selectedAreaName);
+}
+
+/**
+ * Loads a new xml file
+ */
+function loadFileClick() {
+    document.getElementById('load').click();
+}
+
 
   </script>
   <style>
@@ -247,6 +381,8 @@ function clearSerialMonitor() {
       font-family: sans-serif;
       margin: 0;
       overflow: hidden;
+      width: 100%;
+      height: 100%;
     }
     h1 {
       font-weight: normal;
@@ -254,45 +390,17 @@ function clearSerialMonitor() {
       margin-left: 5px;
       margin-right: 5px;
     }
-
-    /* Tabs */
-    #tabRow>td {
-      border: 1px solid #ccc;
-    }
-    td.tabon {
+    .tabon {
       border-bottom-color: #ddd !important;
       background-color: #ddd;
       padding: 5px 19px;
     }
-    td.taboff {
+    .taboff {
       cursor: pointer;
       padding: 5px 19px;
     }
-    td.taboff:hover {
+    .taboff:hover {
       background-color: #eee;
-    }
-    td.tabmin {
-      border-top-style: none !important;
-      border-left-style: none !important;
-      border-right-style: none !important;
-    }
-    td.tabmax {
-      border-top-style: none !important;
-      border-left-style: none !important;
-      border-right-style: none !important;
-      width: 99%;
-      text-align: right;
-    }
-
-    table {
-      border-collapse: collapse;
-      margin: 0;
-      padding: 0;
-      border: none;
-    }
-    td {
-      padding: 0;
-      vertical-align: top;
     }
     .content {
       visibility: hidden;
@@ -360,58 +468,59 @@ function clearSerialMonitor() {
        font-weight: bold;
       margin-left: 1%;
     }
+    #tabs {
+      width: 40%;
+      display: inline-block;
+    }
 
+    #tabs div {
+        width: 116px;
+        height: 25px;
+        display: inline-block;
+    }
 
+    #controls {
+      display: inline-block;
+    }
+
+    #menu {
+      height: 70px;
+    }
+    h1 {
+      height: 30px;
+      margin: 5px;
+    }
   </style>
 </head>
 <body onload="init()">
-  <table height="100%" width="100%">
-    <tr>
-      <td>
-        <h1><a href="https://github.com/gasolin/BlocklyDuino/wiki">BlocklyDuino</a> &gt; web-based visual programming editor for arduino</h1>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <table width="100%">
-          <tr id="tabRow" height="1em">
-            <td id="tab_blocks" class="tabon" onclick="tabClick('blocks')">Blocks</td>
-            <td class="tabmin">&nbsp;</td>
-            <!--td id="tab_javascript" class="taboff" onclick="tabClick(this.id)">JavaScript</td>
-            <td class="tabmin">&nbsp;</td-->
-            <!--td id="tab_dart" class="taboff" onclick="tabClick(this.id)">Dart</td>
-            <td class="tabmin">&nbsp;</td>
-            <td id="tab_python" class="taboff" onclick="tabClick(this.id)">Python</td>
-            <td class="tabmin">&nbsp;</td-->
-            <td id="tab_arduino" class="taboff" onclick="tabClick('arduino')">Arduino</td>
-            <td class="tabmin">&nbsp;</td>
-            <td id="tab_xml" class="taboff" onclick="tabClick('xml')">XML</td>
-            <td class="tabmax">
-              <select id="com-ports">
+  <header id="menu">
+    <h1>
+      Arduino Blockly IDE (Forked From <a href="">BlockyDuino</a>) | <a href="">Actual Code</a>
+    </h1>
+    <div id="tabs">
+      <div id="tab_blocks" class="tabon" onclick="tabClick('blocks')">Blocks</div>
+      <div id="tab_arduino" class="taboff" onclick="tabClick('arduino')">Arduino</div>
+      <div id="tab_xml" class="taboff" onclick="tabClick('xml')">XML</div>
+    </div>
+    <div id="controls">
+      <select id="com-ports">
 
-              </select>
-              <button type="button" onclick="toggleDebug()">Logging \ Debugging</button>
-              <button type="button" onclick="uploadClick()">Upload</button>
-              <button type="button" onclick="resetClick()">Reset</button>
-              <button onclick="discard()">Discard</button>
-              <button onclick="saveCode()">Save Arduino Code</button>
-              <button onclick="save()">Save XML</button>
-              <button id="fakeload">Load XML</button>
-              <input type="file" id="load" style="display: none;"/>
-              <!--button class="launch" onclick="runJS()">Run Program</button-->
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-    <tr>
-      <td height="99%" id="content_area"></td>
-    </tr>
-  </table>
+      </select>
+      <button type="button" onclick="toggleDebugClick()">Debugger</button>
+      <button type="button" onclick="uploadClick()">Upload</button>
+      <button type="button" onclick="resetClick()">Reset</button>
+      <button onclick="discardClick()">Discard</button>
+      <button onclick="saveClick()">Save</button>
+      <button onclick="loadFileClick()" id="fakeload">Load</button>
+      <input type="file" id="load" style="display: none;"/>
+      <!--button class="launch" onclick="runJS()">Run Program</button-->
+    </div>
+  </header>
+
   <div id="content_serial_monitor" style="display: none;">
     <h3>Logging \ Debugging Window </h3>
-    <button id="continue-block" onclick="debugContinue()">Continue Debug</button>
-    <button id="clear-serial-monitor" onclick="clearSerialMonitor()">Clear Window</button>
+    <button id="continue-block" onclick="debugContinueClick()">Continue Debug</button>
+    <button id="clear-serial-monitor" onclick="clearSerialMonitorClick()">Clear Window</button>
 
     <pre id="text_from_serial_monitor"></pre>
   </div>
@@ -466,8 +575,18 @@ function clearSerialMonitor() {
         </value>
       </block>
     </category>
+    <category name="Lists">
+      <block type="lists_create_with"></block>
+      <block type="lists_getIndex"></block>
+      <block type="lists_setIndex"></block>
+      <block type="lists_length"></block>
+      <block type="lists_isEmpty"></block>
+
+
+    </category>
     <category name="Text">
       <block type="text"></block>
+      <block type="text_join"></block>
     </category>
     <category name="Variables" custom="VARIABLE"></category>
     <category name="Global Variables" >
@@ -509,6 +628,7 @@ function clearSerialMonitor() {
         </value>
       </block>
       <block type="inout_notone"></block>
+      <block type="inout_pulse_in"></block>
       <block type="inout_buildin_led"></block>
     </category>
     <category name="Servo">
@@ -563,7 +683,21 @@ function clearSerialMonitor() {
       <!--<block type="grove_motor_shield"></block>-->
     <!--</category>-->
     <category name="LCD Screens">
-      <block type="liquid_crystal_ic2_big_lcd">
+
+      <block type="liquid_crystal_ic2_lcd_setup">
+        <value name="Number of Rows">
+          <block type="math_number">
+            <field name="NUM">4</field>
+          </block>
+        </value>
+        <value name="Number of Columns">
+          <block type="math_number">
+            <field name="NUM">20</field>
+          </block>
+        </value>
+      </block>
+
+      <block type="liquid_crystal_ic2_lcd">
         <value name="Row 1">
           <block type="text">
             <field name="TEXT"></field>
@@ -590,17 +724,17 @@ function clearSerialMonitor() {
           </block>
         </value>
       </block>
-      <block type="liquid_crystal_ic2_big_lcd_backlight">
+      <block type="liquid_crystal_ic2_lcd_backlight">
 
     </block>
-      <block type="liquid_crystal_ic2_big_lcd_clear">
+      <block type="liquid_crystal_ic2_lcd_clear">
 
       </block>
-      <block type="liquid_crystal_ic2_big_lcd_set_cursor"></block>
-      <block type="liquid_crystal_ic2_big_lcd_print"></block>
-      <block type="liquid_crystal_ic2_big_lcd_blink"></block>
-      <block type="liquid_crystal_ic2_big_lcd_scroll_left"></block>
-      <block type="liquid_crystal_ic2_big_lcd_scroll_right"></block>
+      <block type="liquid_crystal_ic2_lcd_set_cursor"></block>
+      <block type="liquid_crystal_ic2_lcd_print"></block>
+      <block type="liquid_crystal_ic2_lcd_blink"></block>
+      <block type="liquid_crystal_ic2_lcd_scroll_left"></block>
+      <block type="liquid_crystal_ic2_lcd_scroll_right"></block>
 
 
     </category>

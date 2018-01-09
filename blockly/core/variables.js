@@ -38,6 +38,11 @@ goog.require('goog.string');
 Blockly.Variables.NAME_TYPE = 'VARIABLE';
 
 /**
+ * Category to separate variable data types.
+ */
+Blockly.Variables.DATA_TYPE = 'DATA TYPE';
+
+/**
  * Find all user-created variables.
  * @param {!Blockly.Block|!Blockly.Workspace} root Root block or workspace.
  * @return {!Array.<string>} Array of variable names.
@@ -75,6 +80,55 @@ Blockly.Variables.allVariables = function(root) {
   }
   return variableList;
 };
+
+/**
+ * Find all user-created variables.
+ * @param {!Blockly.Block|!Blockly.Workspace} root Root block or workspace.
+ * @return {!Array.<string>} Array of variable names.
+ */
+Blockly.Variables.allVariableAndDataType = function(root) {
+    var blocks;
+    if (root.getDescendants) {
+        // Root is Block.
+        blocks = root.getDescendants();
+    } else if (root.getAllBlocks) {
+        // Root is Workspace.
+        blocks = root.getAllBlocks();
+    } else {
+        throw 'Not Block or Workspace: ' + root;
+    }
+    var variableHash = Object.create(null);
+    // Iterate through every block and add each variable to the hash.
+    for (var x = 0; x < blocks.length; x++) {
+        var func = blocks[x].getVars;
+        if (func) {
+            var blockVariables = func.call(blocks[x]);
+            for (var y = 0; y < blockVariables.length; y++) {
+                var varName = blockVariables[y];
+                // Variable name may be null if the block is only half-built.
+                if (varName) {
+                    variableHash[varName.toLowerCase()] = {name: varName, type: blocks[x].getFieldValue('DATA TYPE') };
+                }
+            }
+        }
+    }
+    // Flatten the hash into a list.
+    var variableList = [];
+    for (var name in variableHash) {
+        variableList.push(variableHash[name]);
+    }
+    return variableList;
+};
+
+Blockly.Variables.setAllVariablesToNewDataType = function (dataType, name) {
+    var blocks = Blockly.mainWorkspace.getAllBlocks();
+    for (var x = 0; x < blocks.length; x++) {
+        if (blocks[x].getVars && blocks[x].getFieldValue('VAR') === name) {
+            blocks[x].setFieldValue(dataType, 'DATA TYPE');
+        }
+    }
+};
+
 
 /**
  * Find all instances of the specified variable and rename them.

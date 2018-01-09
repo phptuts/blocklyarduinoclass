@@ -24,10 +24,10 @@ require('rxjs/Operator/take');
  * @type string[]
  */
 const windowsArduinoExecutableGuesses = [
-    "c:\Program Files\Arduino\Arduino_debug.exe",
-    "c:\Program Files\Arduino\Arduino.exe",
-    "c:\Program Files (x86)\Arduino\Arduino_debug.exe",
-    "c:\Program Files (x86)\Arduino\Arduino.exe"
+    "C:\\Program Files\\Arduino\\Arduino_debug.exe",
+    "C:\\Program Files\\Arduino\\Arduino.exe",
+    "C:\\Program Files (x86)\\Arduino\\Arduino_debug.exe",
+    "C:\\Program Files (x86)\\Arduino\\Arduino.exe"
 ];
 
 const macArduinoExecutableGuess = '/Applications/Arduino.app/Contents/MacOS/Arduino';
@@ -37,6 +37,7 @@ app.use('/public', express.static(__dirname + '/'));
 app.use('/msg', express.static(__dirname + '/../../msg'));
 app.use('/media', express.static(__dirname + '/../../media'));
 app.use('/library', express.static(__dirname + '/node_modules/socket.io-client/dist'));
+app.use('/library', express.static(__dirname + '/node_modules/file-saver'));
 app.use('/images', express.static(__dirname + '/images'));
 
 app.use('/media', express.static(__dirname + '/../../media'));
@@ -54,7 +55,8 @@ const observableSubjectSerialMonitor$ = subjectSerialMonitor.asObservable();
 
 let serialPortStringStream = '';
 const behaviorSubjectForDebugBlocks = new RX.BehaviorSubject('');
-behaviorSubjectForDebugBlocks.asObservable()
+behaviorSubjectForDebugBlocks
+    .asObservable()
     .filter(line => /Debugging Block [0-9]+ /.test(line))
     .map(line => line.match(/Debugging Block [0-9]+ /)[0].replace('Debugging Block', ''))
     .map(line => parseInt(line))

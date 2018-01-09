@@ -305,27 +305,17 @@ Blockly.Blocks['lists_getIndex'] = {
    * @this Blockly.Block
    */
   init: function() {
-    var MODE =
-        [[Blockly.Msg.LISTS_GET_INDEX_GET, 'GET'],
-         [Blockly.Msg.LISTS_GET_INDEX_GET_REMOVE, 'GET_REMOVE'],
-         [Blockly.Msg.LISTS_GET_INDEX_REMOVE, 'REMOVE']];
-    this.WHERE_OPTIONS =
-        [[Blockly.Msg.LISTS_GET_INDEX_FROM_START, 'FROM_START'],
-         [Blockly.Msg.LISTS_GET_INDEX_FROM_END, 'FROM_END'],
+    this.WHERE_OPTIONS =[
          [Blockly.Msg.LISTS_GET_INDEX_FIRST, 'FIRST'],
          [Blockly.Msg.LISTS_GET_INDEX_LAST, 'LAST'],
          [Blockly.Msg.LISTS_GET_INDEX_RANDOM, 'RANDOM']];
     this.setHelpUrl(Blockly.Msg.LISTS_GET_INDEX_HELPURL);
     this.setColour(Blockly.Blocks.lists.HUE);
-    var modeMenu = new Blockly.FieldDropdown(MODE, function(value) {
-      var isStatement = (value == 'REMOVE');
-      this.sourceBlock_.updateStatement_(isStatement);
-    });
+
     this.appendValueInput('VALUE')
         .setCheck('Array')
         .appendField(Blockly.Msg.LISTS_GET_INDEX_INPUT_IN_LIST);
     this.appendDummyInput()
-        .appendField(modeMenu, 'MODE')
         .appendField('', 'SPACE');
     this.appendDummyInput('AT');
     if (Blockly.Msg.LISTS_GET_INDEX_TAIL) {
@@ -338,8 +328,7 @@ Blockly.Blocks['lists_getIndex'] = {
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
     this.setTooltip(function() {
-      var combo = thisBlock.getFieldValue('MODE') + '_' +
-          thisBlock.getFieldValue('WHERE');
+      var combo = thisBlock.getFieldValue('WHERE');
       return Blockly.Msg['LISTS_GET_INDEX_TOOLTIP_' + combo];
     });
   },
@@ -437,22 +426,17 @@ Blockly.Blocks['lists_setIndex'] = {
    * @this Blockly.Block
    */
   init: function() {
-    var MODE =
-        [[Blockly.Msg.LISTS_SET_INDEX_SET, 'SET'],
-         [Blockly.Msg.LISTS_SET_INDEX_INSERT, 'INSERT']];
     this.WHERE_OPTIONS =
-        [[Blockly.Msg.LISTS_GET_INDEX_FROM_START, 'FROM_START'],
-         [Blockly.Msg.LISTS_GET_INDEX_FROM_END, 'FROM_END'],
+        [
          [Blockly.Msg.LISTS_GET_INDEX_FIRST, 'FIRST'],
-         [Blockly.Msg.LISTS_GET_INDEX_LAST, 'LAST'],
-         [Blockly.Msg.LISTS_GET_INDEX_RANDOM, 'RANDOM']];
+         [Blockly.Msg.LISTS_GET_INDEX_LAST, 'LAST']
+        ];
     this.setHelpUrl(Blockly.Msg.LISTS_SET_INDEX_HELPURL);
     this.setColour(Blockly.Blocks.lists.HUE);
     this.appendValueInput('LIST')
         .setCheck('Array')
-        .appendField(Blockly.Msg.LISTS_SET_INDEX_INPUT_IN_LIST);
+        .appendField('Set Value in Array');
     this.appendDummyInput()
-        .appendField(new Blockly.FieldDropdown(MODE), 'MODE')
         .appendField('', 'SPACE');
     this.appendDummyInput('AT');
     this.appendValueInput('TO')
@@ -465,8 +449,7 @@ Blockly.Blocks['lists_setIndex'] = {
     // Assign 'this' to a variable for use in the tooltip closure below.
     var thisBlock = this;
     this.setTooltip(function() {
-      var combo = thisBlock.getFieldValue('MODE') + '_' +
-          thisBlock.getFieldValue('WHERE');
+      var combo = thisBlock.getFieldValue('WHERE');
       return Blockly.Msg['LISTS_SET_INDEX_TOOLTIP_' + combo];
     });
   },

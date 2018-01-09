@@ -29,6 +29,15 @@ goog.provide('Blockly.Blocks.variables');
 goog.require('Blockly.Blocks');
 
 
+var VARIABLE_TYPES = [
+    ['Whole Number (int)', 'int'],
+    ['Big Whole Number (long)', 'long'],
+    ['Decimal Number (double)', 'double'],
+    ['Byte 8 zeros or ones', 'byte'],
+    ['Text (String)', 'String'],
+    ['True / False (boolean)', 'bool']
+];
+
 /**
  * Common HSV hue for all blocks in this category.
  */
@@ -95,7 +104,7 @@ Blockly.Blocks['variables_set'] = {
    */
   init: function() {
     this.jsonInit({
-      "message0": Blockly.Msg.VARIABLES_SET,
+      "message0": 'Set %1 of type %3 to %2',
       "args0": [
         {
           "type": "field_variable",
@@ -105,13 +114,19 @@ Blockly.Blocks['variables_set'] = {
         {
           "type": "input_value",
           "name": "VALUE"
-        }
+        },
+          {
+              "type": "field_dropdown",
+              "name": "DATA TYPE",
+              "options": VARIABLE_TYPES
+          }
       ],
       "previousStatement": null,
       "nextStatement": null,
       "colour": Blockly.Blocks.variables.HUE,
       "tooltip": Blockly.Msg.VARIABLES_SET_TOOLTIP,
-      "helpUrl": Blockly.Msg.VARIABLES_SET_HELPURL
+      "helpUrl": Blockly.Msg.VARIABLES_SET_HELPURL,
+
     });
     this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
   },
@@ -135,6 +150,9 @@ Blockly.Blocks['variables_set'] = {
       this.setFieldValue(newName, 'VAR');
     }
   },
+  onchange : function() {
+      Blockly.Variables.setAllVariablesToNewDataType(this.getFieldValue('DATA TYPE'), this.getFieldValue('VAR'));
+  },
   contextMenuType_: 'variables_get',
   customContextMenu: Blockly.Blocks['variables_get'].customContextMenu
 };
@@ -145,8 +163,10 @@ Blockly.Blocks['variables_global'] = {
      * @this Blockly.Block
      */
     init: function() {
+
+
         this.jsonInit({
-            "message0": Blockly.Msg.VARIABLES_SET,
+            "message0": 'Set %1 of type %3 to %2',
             "args0": [
                 {
                     "type": "field_variable",
@@ -156,6 +176,11 @@ Blockly.Blocks['variables_global'] = {
                 {
                     "type": "input_value",
                     "name": "VALUE"
+                },
+                {
+                    "type": "field_dropdown",
+                    "name": "DATA TYPE",
+                    "options": VARIABLE_TYPES
                 }
             ],
             "previousStatement": null,
@@ -191,6 +216,9 @@ Blockly.Blocks['variables_global'] = {
         if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
             this.setFieldValue(newName, 'VAR');
         }
+    },
+    onchange : function() {
+        Blockly.Variables.setAllVariablesToNewDataType(this.getFieldValue('DATA TYPE'), this.getFieldValue('VAR'));
     },
     contextMenuType_: 'variables_get',
     customContextMenu: Blockly.Blocks['variables_get'].customContextMenu

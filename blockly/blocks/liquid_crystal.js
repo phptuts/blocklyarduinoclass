@@ -5,10 +5,41 @@ goog.provide('Blockly.Blocks.liquid_crystal');
 goog.require('Blockly.Blocks');
 
 
-Blockly.Blocks['liquid_crystal_ic2_big_lcd'] = {
+Blockly.Blocks['liquid_crystal_ic2_lcd_setup'] = {
+    init: function () {
+
+        this.appendDummyInput()
+            .appendField("SETUP Block \n")
+            .appendField(new Blockly.FieldImage("https://images-na.ssl-images-amazon.com/images/I/51YdOkZkUuL.jpg", 100, 100, "*"))
+            .appendField('Memory Address / LCD Type')
+            .appendField(new Blockly.FieldDropdown([
+                    ['0x27', '0x27'],
+                    ['0x3F', '0x3F']
+                ]),
+                'memory address lcd type');
+
+        this.appendValueInput("Number of Rows")
+            .setCheck("Number")
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField("The number of rows.");
+
+        this.appendValueInput("Number of Columns")
+            .setCheck("Number")
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField("The number of columns.");
+
+        this.setColour(210);
+        this.setTooltip("Setups the type of lcd screen, required :).");
+
+        this.setPreviousStatement(false, null);
+        this.setNextStatement(false, null);
+    }
+};
+
+Blockly.Blocks['liquid_crystal_ic2_lcd'] = {
     init: function() {
         this.appendDummyInput()
-            .appendField("Simple LCD 20 Columns by 4 Rows \n")
+            .appendField("Simple LCD  \n")
             .appendField(new Blockly.FieldImage("https://images-na.ssl-images-amazon.com/images/I/51YdOkZkUuL.jpg", 100, 100, "*"));
 
         this.appendValueInput("Row 1")
@@ -48,7 +79,7 @@ Blockly.Blocks['liquid_crystal_ic2_big_lcd'] = {
     }
 };
 
-Blockly.Blocks['liquid_crystal_ic2_big_lcd_backlight'] = {
+Blockly.Blocks['liquid_crystal_ic2_lcd_backlight'] = {
     init: function () {
         this.appendDummyInput()
             .appendField("Big LCD - Back Light \n")
@@ -71,7 +102,7 @@ Blockly.Blocks['liquid_crystal_ic2_big_lcd_backlight'] = {
 };
 
 
-Blockly.Blocks['liquid_crystal_ic2_big_lcd_clear'] = {
+Blockly.Blocks['liquid_crystal_ic2_lcd_clear'] = {
     init: function () {
         this.appendDummyInput()
             .appendField("Big LCD - Clear \n")
@@ -87,7 +118,7 @@ Blockly.Blocks['liquid_crystal_ic2_big_lcd_clear'] = {
     }
 };
 
-Blockly.Blocks['liquid_crystal_ic2_big_lcd_set_cursor'] = {
+Blockly.Blocks['liquid_crystal_ic2_lcd_set_cursor'] = {
     init: function () {
         this.appendDummyInput()
             .appendField("Big LCD - Set Position \n")
@@ -114,7 +145,7 @@ Blockly.Blocks['liquid_crystal_ic2_big_lcd_set_cursor'] = {
     }
 };
 
-Blockly.Blocks['liquid_crystal_ic2_big_lcd_print'] = {
+Blockly.Blocks['liquid_crystal_ic2_lcd_print'] = {
     init: function () {
         this.appendDummyInput()
             .appendField("Big LCD - Print  \n")
@@ -137,7 +168,7 @@ Blockly.Blocks['liquid_crystal_ic2_big_lcd_print'] = {
     }
 };
 
-Blockly.Blocks['liquid_crystal_ic2_big_lcd_blink'] = {
+Blockly.Blocks['liquid_crystal_ic2_lcd_blink'] = {
     init: function () {
         this.appendDummyInput()
             .appendField("Big LCD - Blink \n")
@@ -159,7 +190,7 @@ Blockly.Blocks['liquid_crystal_ic2_big_lcd_blink'] = {
     }
 };
 
-Blockly.Blocks['liquid_crystal_ic2_big_lcd_scroll_right'] = {
+Blockly.Blocks['liquid_crystal_ic2_lcd_scroll_right'] = {
     init: function () {
         this.appendDummyInput()
             .appendField("Big LCD - Scroll Right \n")
@@ -174,7 +205,7 @@ Blockly.Blocks['liquid_crystal_ic2_big_lcd_scroll_right'] = {
     }
 };
 
-Blockly.Blocks['liquid_crystal_ic2_big_lcd_scroll_left'] = {
+Blockly.Blocks['liquid_crystal_ic2_lcd_scroll_left'] = {
     init: function () {
         this.appendDummyInput()
             .appendField("Big LCD - Scroll Left \n")
