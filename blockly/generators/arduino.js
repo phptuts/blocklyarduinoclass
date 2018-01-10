@@ -112,7 +112,14 @@ Blockly.Arduino.init = function(workspace) {
           defvars[i] = blocks[i].getFieldValue('DATA TYPE') + ' ' +
               Blockly.Arduino.variableDB_.getName(blocks[i].getFieldValue('VAR'), Blockly.Variables.NAME_TYPE) + ';\n';
       }
+
+      if (blocks[i].type === 'variables_create_array') {
+	      var size = Blockly.Arduino.valueToCode(blocks[i], 'SIZE',  Blockly.Arduino.ORDER_ASSIGNMENT) || '0';
+          defvars[i] = blocks[i].getFieldValue('DATA TYPE') +
+              ' ' + Blockly.Arduino.variableDB_.getName(blocks[i].getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)  +  '[' + size + ']; \n';
+      }
     }
+
 	Blockly.Arduino.definitions_['variables'] = defvars.join('\n');
 };
 

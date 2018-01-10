@@ -204,6 +204,62 @@ Blockly.Blocks['variables_create'] = {
     customContextMenu: Blockly.Blocks['variables_get'].customContextMenu
 };
 
+Blockly.Blocks['variables_create_array'] = {
+    init: function () {
+        this.jsonInit({
+            "message0": 'Create an array variable named %1 set of type %3 of size %2',
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "VAR",
+                    "variable": Blockly.Msg.VARIABLES_DEFAULT_NAME
+                },
+                {
+                    "type": "input_value",
+                    "name": "SIZE"
+                },
+                {
+                    "type": "field_dropdown",
+                    "name": "DATA TYPE",
+                    "options": VARIABLE_TYPES
+                }
+            ],
+            "previousStatement": null,
+            "nextStatement": null,
+            "colour": 231,
+            "tooltip": Blockly.Msg.VARIABLES_SET_TOOLTIP,
+            "helpUrl": Blockly.Msg.VARIABLES_SET_HELPURL
+        });
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+
+        this.contextMenuMsg_ = Blockly.Msg.VARIABLES_SET_CREATE_GET;
+    },
+    /**
+     * Return all variables referenced by this block.
+     * @return {!Array.<string>} List of variable names.
+     * @this Blockly.Block
+     */
+    getVars: function() {
+        return [this.getFieldValue('VAR')];
+    },
+    /**
+     * Notification that a variable is renaming.
+     * If the name matches one of this block's variables, rename it.
+     * @param {string} oldName Previous name of variable.
+     * @param {string} newName Renamed variable.
+     * @this Blockly.Block
+     */
+    renameVar: function(oldName, newName) {
+        if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
+            this.setFieldValue(newName, 'VAR');
+        }
+    },
+    contextMenuType_: 'variables_get',
+    customContextMenu: Blockly.Blocks['variables_get'].customContextMenu
+
+};
+
 Blockly.Blocks['variables_create_global'] = {
     /**
      * Block for variable setter.

@@ -50,6 +50,47 @@ Blockly.Blocks['math_number'] = {
   }
 };
 
+Blockly.Blocks['math_byte'] = {
+  init: function () {
+      this.setColour(Blockly.Blocks.math.HUE);
+      this.appendDummyInput()
+          .appendField('Byte Value (8 zeros or ones)')
+          .appendField(new Blockly.FieldDropdown([
+                  ['0', '0'],
+                  ['1', '1']
+          ]), 'BYTE 1')
+          .appendField(new Blockly.FieldDropdown([
+                  ['0', '0'],
+                  ['1', '1']
+          ]), 'BYTE 2')
+          .appendField(new Blockly.FieldDropdown([
+                  ['0', '0'],
+                  ['1', '1']
+          ]), 'BYTE 3')
+          .appendField(new Blockly.FieldDropdown([
+              ['0', '0'],
+              ['1', '1']
+          ]), 'BYTE 4')
+          .appendField(new Blockly.FieldDropdown([
+                  ['0', '0'],
+                  ['1', '1']
+          ]), 'BYTE 5')
+          .appendField(new Blockly.FieldDropdown([
+              ['0', '0'],
+              ['1', '1']
+          ]), 'BYTE 6')
+          .appendField(new Blockly.FieldDropdown([
+              ['0', '0'],
+              ['1', '1']
+          ]), 'BYTE 7')
+          .appendField(new Blockly.FieldDropdown([
+              ['0', '0'],
+              ['1', '1']
+          ]), 'BYTE 8');
+      this.setOutput(true, null);
+  }
+};
+
 Blockly.Blocks['math_arithmetic'] = {
   /**
    * Block for basic arithmetic operator.

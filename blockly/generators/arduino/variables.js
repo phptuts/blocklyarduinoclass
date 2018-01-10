@@ -62,4 +62,8 @@ Blockly.Arduino.variables_create = function () {
     var varName = Blockly.Arduino.variableDB_.getName(this.getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
 
     return varName + ' = ' + argument0 + ';\n';
-}
+};
+
+Blockly.Arduino.variables_create_array = function () {
+    return '';
+};

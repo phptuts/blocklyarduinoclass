@@ -28,6 +28,16 @@ goog.provide('Blockly.Arduino.math');
 goog.require('Blockly.Arduino');
 
 
+Blockly.Arduino.math_byte = function () {
+  var byteValue = 'B';
+
+  for (var i = 1; i <= 8; i += 1) {
+      byteValue += this.getFieldValue("BYTE " + i) || '0';
+  }
+
+  return [byteValue, Blockly.Arduino.ORDER_ATOMIC];
+};
+
 Blockly.Arduino.math_number = function() {
   // Numeric value.
   var code = window.parseFloat(this.getFieldValue('NUM'));
