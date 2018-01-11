@@ -9,7 +9,7 @@ Blockly.Arduino['debug'] = function(block) {
 
     var variables = Blockly.Variables.allVariables(Blockly.mainWorkspace);
 
-    Blockly.Arduino.setups_['setup_serial_' + profile.default.serial] = 'Serial.begin(' + profile.default.serial + ');\n';
+    Blockly.Arduino._serial_setup();
 
     var debugFunction  = '\n\nvoid debug(int blockNumber) { \n' +
                        '\t\tString stopDebug = ""; \n';

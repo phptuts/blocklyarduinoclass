@@ -105,19 +105,33 @@ Blockly.Arduino.init = function(workspace) {
 		Blockly.Arduino.variableDB_.reset();
 	}
     var defvars = [];
+	var variableNames = [];
 
     var blocks = Blockly.mainWorkspace.getAllBlocks();
-	for (var i = 0; i < blocks.length; i += 1) {
+
+
+    for (var i = 0; i < blocks.length; i += 1) {
+        var variableName = '';
 	  if (blocks[i].type === 'variables_create' || blocks[i].type === 'variables_create_global') {
-          defvars[i] = blocks[i].getFieldValue('DATA TYPE') + ' ' +
-              Blockly.Arduino.variableDB_.getName(blocks[i].getFieldValue('VAR'), Blockly.Variables.NAME_TYPE) + ';\n';
+          variableName = Blockly.Arduino.variableDB_.getName(blocks[i].getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+          defvars[defvars.length] = blocks[i].getFieldValue('DATA TYPE') + ' ' + variableName + ';\n';
+          variableNames.push(variableName);
       }
 
       if (blocks[i].type === 'variables_create_array') {
 	      var size = Blockly.Arduino.valueToCode(blocks[i], 'SIZE',  Blockly.Arduino.ORDER_ASSIGNMENT) || '0';
-          defvars[i] = blocks[i].getFieldValue('DATA TYPE') +
-              ' ' + Blockly.Arduino.variableDB_.getName(blocks[i].getFieldValue('VAR'), Blockly.Variables.NAME_TYPE)  +  '[' + size + ']; \n';
+          variableName = Blockly.Arduino.variableDB_.getName(blocks[i].getFieldValue('VAR'), Blockly.Variables.NAME_TYPE);
+          defvars[defvars.length] = blocks[i].getFieldValue('DATA TYPE') + ' ' +  variableName +  '[' + size + ']; \n';
+          variableNames.push(variableName);
       }
+    }
+
+    var allVariables = Blockly.Variables.allVariables(workspace);
+
+    for (var i = 0; i < allVariables.length; i += 1) {
+       if (variableNames.indexOf(allVariables[i]) === -1) {
+          defvars[defvars.length] = 'int ' + allVariables[i] + ';';
+       }
     }
 
 	Blockly.Arduino.definitions_['variables'] = defvars.join('\n');

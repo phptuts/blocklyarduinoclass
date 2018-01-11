@@ -426,7 +426,6 @@ function loadFileClick() {
       overflow: scroll;
     }
     button {
-      padding: 1px 1em;
       font-size: 90%;
       border-radius: 4px;
       border: 1px solid #ddd;
@@ -469,8 +468,7 @@ function loadFileClick() {
       margin-left: 1%;
     }
     #tabs {
-      width: 40%;
-      display: inline-block;
+      width: 455px;
     }
 
     #tabs div {
@@ -480,11 +478,12 @@ function loadFileClick() {
     }
 
     #controls {
-      display: inline-block;
+      margin-bottom: 10px;
+      text-align: center;
     }
 
     #menu {
-      height: 70px;
+      height: 102px;
     }
     h1 {
       height: 30px;
@@ -497,14 +496,15 @@ function loadFileClick() {
     <h1>
       Arduino Blockly IDE (Forked From <a href="">BlockyDuino</a>) | <a href="">Actual Code</a>
     </h1>
-    <div id="tabs">
-      <div id="tab_blocks" class="tabon" onclick="tabClick('blocks')">Blocks</div>
-      <div id="tab_arduino" class="taboff" onclick="tabClick('arduino')">Arduino</div>
-      <div id="tab_xml" class="taboff" onclick="tabClick('xml')">XML</div>
-    </div>
     <div id="controls">
+      <label for="controls">USB</label>
       <select id="com-ports">
 
+      </select>
+      <label for="usb-speeds">USB Speed</label>
+      <select id="usb-speeds">
+        <option value="9600" >9600 (baud)</option>
+        <option value="115200">155200 (baud)</option>
       </select>
       <button type="button" onclick="toggleDebugClick()">Debugger</button>
       <button type="button" onclick="uploadClick()">Upload</button>
@@ -514,6 +514,12 @@ function loadFileClick() {
       <button onclick="loadFileClick()" id="fakeload">Load</button>
       <input type="file" id="load" style="display: none;"/>
       <!--button class="launch" onclick="runJS()">Run Program</button-->
+    </div>
+
+    <div id="tabs">
+      <div id="tab_blocks" class="tabon" onclick="tabClick('blocks')">Blocks</div>
+      <div id="tab_arduino" class="taboff" onclick="tabClick('arduino')">Arduino</div>
+      <div id="tab_xml" class="taboff" onclick="tabClick('xml')">XML</div>
     </div>
   </header>
 
@@ -567,6 +573,7 @@ function loadFileClick() {
     <category name="Math">
       <block type="math_number"></block>
       <block type="math_byte"></block>
+      <block type="math_random_int"></block>
       <block type="math_arithmetic"></block>
       <block type="base_map">
         <value name="DMAX">
@@ -595,12 +602,13 @@ function loadFileClick() {
       <block type="variables_get"></block>
       <block type="variables_set"></block>
     </category>
-
     <category name="Debug" >
       <block type="debug"></block>
-
     </category>
-
+    <category name="NEO Pixel">
+      <block type="neo_pixel_setup"></block>
+      <block type="neo_pixel_set_pixel_color"></block>
+    </category>
     <category name="Functions" custom="PROCEDURE"></category>
     <sep></sep>
     <category name="Input/Output">
@@ -699,6 +707,11 @@ function loadFileClick() {
       <block type="liquid_crystal_ic2_lcd_scroll_right"></block>
 
 
+    </category>
+    <category name="Led Matrix">
+      <block type="led_matrix_set_row"></block>
+      <block type="led_matrix_set_column"></block>
+      <block type="led_matrix_set_led"></block>
     </category>
 
   </xml>

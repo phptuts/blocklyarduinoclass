@@ -72,3 +72,10 @@ Blockly.Arduino.math_arithmetic.OPERATORS = {
   DIVIDE: [' / ', Blockly.Arduino.ORDER_MULTIPLICATIVE],
   POWER: [null, Blockly.Arduino.ORDER_NONE]  // Handle power separately.
 };
+
+Blockly.Arduino.math_random_int = function (block) {
+    var min = Blockly.Arduino.valueToCode(block, 'FROM', Blockly.Arduino.ORDER_ATOMIC);
+    var max = Blockly.Arduino.valueToCode(block, 'TO', Blockly.Arduino.ORDER_ATOMIC);
+
+    return ["random(" + min + ', ' +  max + ")", Blockly.Arduino.ORDER_ATOMIC];
+};

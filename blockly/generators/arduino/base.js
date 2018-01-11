@@ -155,11 +155,16 @@ Blockly.Arduino.servo_read_degrees = function() {
 };
 
 Blockly.Arduino.serial_print = function() {
-  var content = Blockly.Arduino.valueToCode(this, 'CONTENT', Blockly.Arduino.ORDER_ATOMIC) || '0'
+    Blockly.Arduino._serial_setup();
+    var content = Blockly.Arduino.valueToCode(this, 'CONTENT', Blockly.Arduino.ORDER_ATOMIC) || '0'
   //content = content.replace('(','').replace(')','');
-
-  Blockly.Arduino.setups_['setup_serial_' + profile.default.serial] = 'Serial.begin(' + profile.default.serial + ');\n';
 
   var code = 'Serial.println(' + content + ');\n';
   return code;
+};
+
+Blockly.Arduino._serial_setup = function () {
+    var element = document.getElementById('usb-speeds');
+    var usbSpeed = element.options[element.selectedIndex].value;
+    Blockly.Arduino.setups_['setup_serial_' + profile.default.serial] = 'Serial.begin(' + usbSpeed + ');\n';
 };
