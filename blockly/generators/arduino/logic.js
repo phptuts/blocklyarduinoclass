@@ -80,6 +80,7 @@ Blockly.Arduino.logic_operation = function() {
   return [code, order];
 };
 
+
 Blockly.Arduino.logic_negate = function() {
   // Negation.
   var order = Blockly.Arduino.ORDER_UNARY_PREFIX;

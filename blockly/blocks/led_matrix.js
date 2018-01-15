@@ -9,7 +9,7 @@ Blockly.Blocks['led_matrix_set_column'] = {
 
         this.appendDummyInput()
             .appendField('Set columns of leds')
-            .appendField(new Blockly.FieldImage("/images/led_matrix.jpg", 50, 50, "*"));
+            .appendField(new Blockly.FieldImage("/images/column.png", 50, 50, "*"));
 
 
         this.appendValueInput("Column Number")
@@ -29,12 +29,27 @@ Blockly.Blocks['led_matrix_set_column'] = {
     }
 };
 
+Blockly.Blocks['led_matrix_clear'] = {
+    init: function () {
+
+        this.appendDummyInput()
+            .appendField('Clear LED Matrix')
+            .appendField(new Blockly.FieldImage("http://www.clker.com/cliparts/v/C/F/E/b/p/edit-clear-md.png", 50, 50, "*"));
+
+        this.setColour(220);
+        this.setTooltip("Clears the board.");
+
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+    }
+};
+
 Blockly.Blocks['led_matrix_set_row'] = {
     init: function () {
 
         this.appendDummyInput()
             .appendField('Set row of leds')
-            .appendField(new Blockly.FieldImage("/images/led_matrix.jpg", 50, 50, "*"));
+            .appendField(new Blockly.FieldImage("/images/row.png", 50, 50, "*"));
 
 
         this.appendValueInput("Row Number")
@@ -59,7 +74,7 @@ Blockly.Blocks['led_matrix_set_led'] = {
 
         this.appendDummyInput()
             .appendField('Set row / column of the led')
-            .appendField(new Blockly.FieldImage("/images/led_matrix.jpg", 50, 50, "*"));
+            .appendField(new Blockly.FieldImage("/images/set_one_led_matrix.png", 50, 50, "*"));
 
 
         this.setColour(220);
@@ -85,3 +100,4 @@ Blockly.Blocks['led_matrix_set_led'] = {
 
     }
 };
+

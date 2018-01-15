@@ -34,3 +34,8 @@ Blockly.Arduino['led_matrix_set_led'] = function (block) {
     return 'lc.setLed(0, ' + rowNumber + ', ' + columnNumber + ', ' + lightState + '); \n';
 
 };
+
+Blockly.Arduino['led_matrix_clear'] = function () {
+    setupLedMatrix();
+    return 'lc.clearDisplay(0); \n';
+};

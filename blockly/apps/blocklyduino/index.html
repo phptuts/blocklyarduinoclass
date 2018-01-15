@@ -78,11 +78,6 @@ socket.on('usb-ports', function (usbPorts) {
     }
 });
 
-socket.on('serial-monitor', function(data) {
-    var div = document.querySelector('#text_from_serial_monitor');
-    div.innerHTML = div.innerHTML + data;
-    console.log(data);
-});
 
 socket.on('uploaded', function (uploaded) {
     var message = uploaded ? 'Your code was successfully uploaded.' :
@@ -165,7 +160,6 @@ function isArduino(port) {
  */
 function uploadCode(code) {
 
-    document.querySelector('#text_from_serial_monitor').innerHTML = '';
     var arduinoUSBPort = document.querySelector('#com-ports').value;
     var request = new XMLHttpRequest();
 
@@ -179,7 +173,9 @@ function uploadCode(code) {
  */
 function clearDebugBlocks() {
     var blocks = Blockly.mainWorkspace.getAllBlocks();
-    Blockly.selected.unselect();
+    if (Blockly.selected) {
+        Blockly.selected.unselect();
+    }
     for (var i = 0; i < blocks.length; i += 1) {
         if (blocks[i].type === 'debug') {
             blocks[i].setColour(210);
@@ -273,28 +269,6 @@ function resizeListener() {
  */
 
 
-/**
- * Toggles the visibility of the serial monitor
- */
-function toggleDebugClick() {
-    var debugElement = document.querySelector('#content_serial_monitor');
-    var contentBlock = document.querySelector('#content_blocks');
-    if (debugElement.style.display === 'none') {
-        debugElement.style.display = 'block';
-        contentBlock.style.width = '50%!important';
-    }  else {
-        debugElement.style.display = 'none';
-        contentBlock.style.width = '100%!important';
-    }
-}
-
-/**
- * Clears out the serial monitor
- */
-function clearSerialMonitorClick() {
-    var debugElement = document.querySelector('#content_serial_monitor pre');
-    debugElement.innerHTML = '';
-}
 
 /**
  * Save blocks to local file.
@@ -444,29 +418,6 @@ function loadFileClick() {
       box-shadow: 2px 2px 5px #888;
     }
 
-    #content_serial_monitor {
-      width: 48%;
-      height: 400px;
-      border: solid red 2px;
-      z-index: 1;
-      position: absolute;
-      left: 48%;
-      top: 68px;
-      background: white;
-      overflow-y: scroll;
-    }
-
-    #content_serial_monitor h3 {
-       font-size: 1em;
-       text-align: center;
-    }
-
-    #continue-block, #clear-serial-monitor {
-       width: 48%;
-       font-size: 2em;
-       font-weight: bold;
-      margin-left: 1%;
-    }
     #tabs {
       width: 455px;
       border-bottom: gray solid 1px;
@@ -496,7 +447,9 @@ function loadFileClick() {
 <body onload="init()">
   <header id="menu">
     <h1>
-      Arduino Blockly IDE (Forked From <a href="">BlockyDuino</a>) | <a href="">Actual Code</a>
+      Arduino Blockly IDE (Copied From
+      <a href="https://github.com/BlocklyDuino/BlocklyDuino">BlockyDuino</a>) |
+      <a href="https://github.com/phptuts/blocklyarduinoclass">Actual Code</a>
     </h1>
     <div id="controls">
       <label for="controls">USB</label>
@@ -507,10 +460,22 @@ function loadFileClick() {
       <select id="usb-speeds">
         <option value="9600" >9600 (baud)</option>
         <option value="115200">155200 (baud)</option>
+        <option value="300">300 (baud)</option>
+        <option value="600">600 (baud)</option>
+        <option value="1200">1200 (baud)</option>
+        <option value="2400">2400 (baud)</option>
+        <option value="4800">4800 (baud)</option>
+        <option value="9600">9600 (baud)</option>
+        <option value="14400">14400 (baud)</option>
+        <option value="19200">19200 (baud)</option>
+        <option value="28800">28800 (baud)</option>
+        <option value="38400">38400 (baud)</option>
+        <option value="57600">38400 (baud)</option>
       </select>
-      <button type="button" onclick="toggleDebugClick()">Debugger</button>
       <button type="button" onclick="uploadClick()">Upload</button>
       <button type="button" onclick="resetClick()">Reset</button>
+      <button onclick="window.open('/serial','Serial Monitor','height=500,width=500');">Serial Monitor</button>
+      <button type="button" onclick="debugContinueClick()">Continue Debugging</button>
       <button onclick="discardClick()">Discard</button>
       <button onclick="saveClick()">Save</button>
       <button onclick="loadFileClick()" id="fakeload">Load</button>
@@ -525,13 +490,6 @@ function loadFileClick() {
     </div>
   </header>
 
-  <div id="content_serial_monitor" style="display: none;">
-    <h3>Logging \ Debugging Window </h3>
-    <button id="continue-block" onclick="debugContinueClick()">Continue Debug</button>
-    <button id="clear-serial-monitor" onclick="clearSerialMonitorClick()">Clear Window</button>
-
-    <pre id="text_from_serial_monitor"></pre>
-  </div>
 
   <div id="content_blocks" class="content"></div>
   <textarea id="content_arduino" class="content" readonly wrap="off"></textarea>
@@ -542,6 +500,7 @@ function loadFileClick() {
       <block type="controls_if"></block>
       <block type="logic_compare"></block>
       <block type="logic_operation"></block>
+      <block type="logic_boolean"></block>
       <block type="logic_negate"></block>
       <block type="logic_null"></block>
     </category>
@@ -629,6 +588,13 @@ function loadFileClick() {
           </block>
         </value>
       </block>
+      <block type="serial_read_until">
+        <value name="CONTENT">
+          <block type="text">
+            <field name="TEXT">|</field>
+          </block>
+        </value>
+      </block>
       <block type="inout_tone">
         <value name="NUM">
           <block type="math_number">
@@ -709,6 +675,7 @@ function loadFileClick() {
       <block type="led_matrix_set_row"></block>
       <block type="led_matrix_set_column"></block>
       <block type="led_matrix_set_led"></block>
+      <block type="led_matrix_clear"></block>
     </category>
     <category name="Water Sensor">
       <block type="water_sensor_setup"></block>
@@ -720,6 +687,18 @@ function loadFileClick() {
       <block type="rfid_scanned_card"></block>
       <block type="rfid_tag_number"></block>
       <block type="rfid_card_number"></block>
+    </category>
+    <category name="IR Remote">
+      <block type="ir_remote_setup"></block>
+      <block type="ir_remote_has_reading"></block>
+      <block type="ir_remote_get_hex"></block>
+      <block type="ir_remote_can_read_again"></block>
+    </category>
+    <category name="Humidity/Temp">
+      <block type="temp_humidity_setup"></block>
+      <block type="temp_humidity_get_reading"></block>
+      <block type="temp_humidity_humidity_percentage"></block>
+      <block type="temp_humidity_temp_celsius"></block>
     </category>
   </xml>
 </body>

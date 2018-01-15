@@ -12,8 +12,8 @@ Blockly.Blocks['neo_pixel_setup'] = {
     init: function () {
         this.setColour(230);
         this.appendDummyInput()
-            .appendField(new Blockly.FieldImage("/images/rgblight.jpg", 50, 50, "*"))
-            .appendField("AnalogWrite PIN#")
+            .appendField(new Blockly.FieldImage("/images/setup.jpg", 50, 50, "*"))
+            .appendField("Setup Neo Pixel - AnalogWrite PIN#")
             .appendField(new Blockly.FieldDropdown(profile.default.digital), "PIN");
 
         this.appendValueInput("NUMBER OF LEDS")

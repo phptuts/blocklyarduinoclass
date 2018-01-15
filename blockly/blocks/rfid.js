@@ -8,7 +8,7 @@ Blockly.Blocks['rfid_scanned_card'] = {
         this.setColour(245);
         this.appendDummyInput()
             .appendField("Has RFID Reader Scanned Card?")
-            .appendField(new Blockly.FieldImage("/images/rfid.jpg", 50, 50, "*"))
+            .appendField(new Blockly.FieldImage("/images/sensing.jpg", 50, 50, "*"))
         this.setOutput(true, 'Boolean');
     }
 };

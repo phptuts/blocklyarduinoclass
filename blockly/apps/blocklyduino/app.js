@@ -174,6 +174,17 @@ app.get('/continue', (req, res) => {
     res.send(serialPort === null ? 'serial-port-not-there' : '');
 });
 
+app.get('/serial-write/:message', (req, res) => {
+    if (serialPort !== null) {
+        serialPort.write(req.params['message']);
+    }
+    res.send(serialPort === null ? 'serial-port-not-there' : '');
+});
+
+app.get('/serial', (req, res) => {
+    res.sendFile(path.join(__dirname, 'serial.html'));
+});
+
 /**
  * This is the end point for uploading the code
  */

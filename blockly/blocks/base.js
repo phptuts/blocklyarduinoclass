@@ -258,3 +258,15 @@ Blockly.Blocks['serial_print'] = {
     this.setTooltip('Prints data to the console/serial port as human-readable ASCII text.');
   }
 };
+
+Blockly.Blocks['serial_read_until'] = {
+    init: function() {
+        this.setColour(230);
+        this.appendValueInput("CONTENT", 'String')
+            .appendField("Read Until ");
+
+        this.setOutput(true, 'String');
+        this.setTooltip('Reads USB data until it finds the string.');
+
+    }
+};
