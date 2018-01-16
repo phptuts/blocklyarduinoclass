@@ -263,7 +263,7 @@ Blockly.Blocks['serial_read_until'] = {
     init: function() {
         this.setColour(230);
         this.appendValueInput("CONTENT", 'String')
-            .appendField("Read Until ");
+            .appendField("Read Until One Character");
 
         this.setOutput(true, 'String');
         this.setTooltip('Reads USB data until it finds the string.');

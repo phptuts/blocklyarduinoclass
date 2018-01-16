@@ -30,6 +30,7 @@ goog.require('Blockly.Arduino');
 
 Blockly.Arduino.text = function() {
   // Text value.
+    console.log(this.getFieldValue('TEXT'));
   var code = Blockly.Arduino.quote_(this.getFieldValue('TEXT'));
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
