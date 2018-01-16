@@ -68,13 +68,12 @@ socket.on('connection', function (socket) {
 
 socket.on('usb-ports', function (usbPorts) {
     document.querySelector('#com-ports').innerHTML = "";
+    document.querySelector("#blue-tooth-ports").innerHTML = "";
+
     for (var i = 0; i < usbPorts.length; i += 1) {
-        let opt = document.createElement('option');
-        var name = isArduino(usbPorts[i]) ? '(Arduino) ' : '';
-        name += usbPorts[i].comName
-        opt.value =  i;
-        opt.innerHTML = name;
-        document.querySelector('#com-ports').appendChild(opt);
+
+        document.querySelector('#com-ports').appendChild(createUSBOption(usbPorts[i], i));
+        document.querySelector("#blue-tooth-ports").appendChild(createUSBOption(usbPorts[i], i));
     }
 });
 
@@ -153,6 +152,22 @@ function renderContent(selectedArea = 'blocks') {
  */
 function isArduino(port) {
     return typeof port.manufacturer !== 'undefined' && port.manufacturer.indexOf('Arduino') > -1;
+}
+
+/**
+ * Create an option tag to put into the select boxes
+ *
+ * @param usbInfo and object containing the usb information
+ * @param index the position that it sent to us
+ */
+function createUSBOption(usbInfo, index) {
+    var opt = document.createElement('option');
+    var name = isArduino(usbInfo) ? '(Arduino) ' : '';
+    name += usbInfo.comName
+    opt.value =  index;
+    opt.innerHTML = name;
+
+    return opt;
 }
 
 /**
@@ -344,7 +359,6 @@ function loadFileClick() {
     document.getElementById('load').click();
 }
 
-
   </script>
   <style>
     html, body {
@@ -430,13 +444,13 @@ function loadFileClick() {
         border: solid gray 1px;
     }
 
-    #controls {
+    #controls, #blue-tooth-controls {
       margin-bottom: 10px;
       text-align: center;
     }
 
     #menu {
-      height: 98px;
+      height: 128px;
     }
     h1 {
       height: 30px;
@@ -452,7 +466,7 @@ function loadFileClick() {
       <a href="https://github.com/phptuts/blocklyarduinoclass">Actual Code</a>
     </h1>
     <div id="controls">
-      <label for="controls">USB</label>
+      <label for="com-ports">USB</label>
       <select id="com-ports">
 
       </select>
@@ -474,13 +488,28 @@ function loadFileClick() {
       </select>
       <button type="button" onclick="uploadClick()">Upload</button>
       <button type="button" onclick="resetClick()">Reset</button>
-      <button onclick="window.open('/serial','Serial Monitor','height=500,width=500');">Serial Monitor</button>
+      <button onclick="window.open('/serial-monitor',
+      'Serial Monitor',
+      'height=500,width=500,left=0,top=0,resizable=no,scrollbars=no,toolbar=no,menubar=no,location=no,directories=no,status=no'
+      );">Serial Monitor</button>
       <button type="button" onclick="debugContinueClick()">Continue Debugging</button>
       <button onclick="discardClick()">Discard</button>
       <button onclick="saveClick()">Save</button>
       <button onclick="loadFileClick()" id="fakeload">Load</button>
       <input type="file" id="load" style="display: none;"/>
+
       <!--button class="launch" onclick="runJS()">Run Program</button-->
+    </div>
+    <div id="blue-tooth-controls">
+      <label for="blue-tooth-ports">Bluetooth Connection</label>
+      <select id="blue-tooth-ports">
+
+      </select>
+      <button onclick="window.open('/bluetooth-monitor/' + document.querySelector('#blue-tooth-ports').value,
+          'Bluetooth Monitors',
+          'height=500,width=500,left=0,top=0,resizable=no,scrollbars=no,toolbar=no,menubar=no,location=no,directories=no,status=no'
+          );" type="button">Bluetooth Monitor</button>
+
     </div>
 
     <div id="tabs">
@@ -535,6 +564,8 @@ function loadFileClick() {
       <block type="math_number"></block>
       <block type="math_byte"></block>
       <block type="math_random_int"></block>
+      <block type="math_parse_int"></block>
+      <block type="math_parse_double"></block>
       <block type="math_arithmetic"></block>
       <block type="base_map">
         <value name="DMAX">
@@ -556,6 +587,9 @@ function loadFileClick() {
     <category name="Text">
       <block type="text"></block>
       <block type="text_join"></block>
+      <block type="text_remove_char"></block>
+      <block type="text_length"></block>
+      <block type="text_value_to_string"></block>
     </category>
     <category name="Variables" >
       <block type="variables_create"></block>

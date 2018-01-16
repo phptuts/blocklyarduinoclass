@@ -53,6 +53,9 @@ const observableUSBPorts$ = RX.Observable
 const subjectSerialMonitor = new RX.Subject();
 const observableSubjectSerialMonitor$ = subjectSerialMonitor.asObservable();
 
+const subjectBlueToothMonitor = new RX.Subject();
+const observableSubjectBlueToothMonitor$ = subjectBlueToothMonitor.asObservable();
+
 let serialPortStringStream = '';
 const behaviorSubjectForDebugBlocks = new RX.BehaviorSubject('');
 behaviorSubjectForDebugBlocks
@@ -65,6 +68,10 @@ behaviorSubjectForDebugBlocks
         serialPortStringStream = '';
     });
 
+
+observableSubjectBlueToothMonitor$
+    .map(bytes => new Buffer(bytes).toString('utf8'))
+    .subscribe(line => io.emit('bluetooth-monitor', line));
 
 /**
  * Builds the stream for Reading the serial port
@@ -79,6 +86,11 @@ observableSubjectSerialMonitor$
  * The serial port object
  */
 let serialPort = null;
+
+/**
+ * The Serial Port For Communicating with bluetooth
+ */
+let blueToothPort = null;
 
 /**
  * Is true if the socket is open
@@ -155,7 +167,7 @@ let readSerialPort = (selectedUSBInputPortName) => {
     serialPort.on('data', line => subjectSerialMonitor.next(line));
     serialPort.on('close', () => {
         console.log('Serial Port was closed')
-    })
+    });
 };
 
 /**
@@ -165,6 +177,9 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+/**
+ * This is end point to move forward with the debug process
+ */
 app.get('/continue', (req, res) => {
 
     if (serialPort !== null) {
@@ -174,15 +189,49 @@ app.get('/continue', (req, res) => {
     res.send(serialPort === null ? 'serial-port-not-there' : '');
 });
 
-app.get('/serial-write/:message', (req, res) => {
+/**
+ * This end point writes the Arduino Serial Monitor
+ */
+app.get('/serial-monitor-write/:message', (req, res) => {
     if (serialPort !== null) {
         serialPort.write(req.params['message']);
     }
     res.send(serialPort === null ? 'serial-port-not-there' : '');
 });
 
-app.get('/serial', (req, res) => {
-    res.sendFile(path.join(__dirname, 'serial.html'));
+/**
+ * This end point writes the Arduino Serial Monitor
+ */
+app.get('/serial-monitor', (req, res) => {
+    res.sendFile(path.join(__dirname, 'serial-monitor.html'));
+});
+
+/**
+ * This end point writes the Arduino Serial Monitor
+ */
+app.get('/bluetooth-monitor/:usb', (req, res) => {
+    let sub = observableUSBPorts$
+        .take(1)
+        .subscribe((usbPorts) => {
+            sub.unsubscribe();
+            blueToothPort = new SerialPort(usbPorts[req.params['usb']].comName, {autoOpen: true});
+            blueToothPort.pipe(new Readline())
+            blueToothPort.on('data', line => subjectBlueToothMonitor.next(line));
+            blueToothPort.on('close', () => {
+                console.log('Serial Port was closed')
+            });
+        });
+
+    res.sendFile(path.join(__dirname, 'bluetooth-monitor.html'));
+});
+
+
+app.get('/bluetooth-monitor-write/:message', (req, res) => {
+
+    if (blueToothPort !== null) {
+        blueToothPort.write(req.params['message']);
+    }
+    res.send(blueToothPort === null ? 'serial-port-not-there' : '');
 });
 
 /**

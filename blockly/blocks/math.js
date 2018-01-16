@@ -50,6 +50,30 @@ Blockly.Blocks['math_number'] = {
   }
 };
 
+Blockly.Blocks['math_parse_int'] = {
+   init: function () {
+       this.setColour(Blockly.Blocks.math.HUE);
+       this.appendValueInput("String Variable")
+           .setCheck("Variable")
+           .setAlign(Blockly.ALIGN_RIGHT)
+           .appendField("String To Whole Number (int) ");
+
+       this.setOutput(true, "Number");
+   }
+};
+
+Blockly.Blocks['math_parse_double'] = {
+    init: function () {
+        this.setColour(Blockly.Blocks.math.HUE);
+        this.appendValueInput("String Variable")
+            .setCheck("Variable")
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField("String To Decimal Number (double) ");
+
+        this.setOutput(true, "Number");
+    }
+};
+
 Blockly.Blocks['math_byte'] = {
   init: function () {
       this.setColour(Blockly.Blocks.math.HUE);

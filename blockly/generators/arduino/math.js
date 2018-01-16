@@ -48,6 +48,18 @@ Blockly.Arduino.math_number = function() {
   return [code, order];
 };
 
+Blockly.Arduino.math_parse_int = function (block) {
+    var stringVariable = Blockly.Arduino.valueToCode(block, 'String Variable', Blockly.Arduino.ORDER_ATOMIC);
+
+    return [stringVariable + '.toInt()', Blockly.Arduino.ORDER_ATOMIC];
+};
+
+Blockly.Arduino.math_parse_double = function (block) {
+    var stringVariable = Blockly.Arduino.valueToCode(block, 'String Variable', Blockly.Arduino.ORDER_ATOMIC);
+
+    return [stringVariable + '.toDouble()', Blockly.Arduino.ORDER_ATOMIC];
+};
+
 Blockly.Arduino.math_arithmetic = function() {
   // Basic arithmetic operators, and power.
   var mode = this.getFieldValue('OP');

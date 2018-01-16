@@ -66,6 +66,52 @@ Blockly.Blocks['text'] = {
   }
 };
 
+Blockly.Blocks['text_remove_char'] = {
+    init: function () {
+        this.setColour(Blockly.Blocks.texts.HUE);
+        this.appendDummyInput()
+            .appendField('Remove A Character from a string');
+
+        this.appendValueInput("String Variable")
+            .setCheck("Variable")
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField("String variable: ");
+
+        this.appendValueInput("INDEX")
+            .setCheck("Number")
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField("Index At: ");
+
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+    }
+};
+
+Blockly.Blocks['text_length'] = {
+   init: function () {
+       this.setColour(Blockly.Blocks.texts.HUE);
+
+       this.appendValueInput("String Variable")
+           .setCheck("Variable")
+           .setAlign(Blockly.ALIGN_RIGHT)
+           .appendField("String variable length ");
+
+       this.setOutput(true, "Number");
+   }
+};
+
+Blockly.Blocks['text_value_to_string'] = {
+    init: function () {
+        this.setColour(Blockly.Blocks.texts.HUE);
+
+        this.appendValueInput("VALUE")
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField("Value To String ");
+
+        this.setOutput(true, "String");
+    }
+};
+
 Blockly.Blocks['text_join'] = {
   /**
    * Block for creating a string made up of any number of elements of any type.
@@ -264,29 +310,6 @@ Blockly.Blocks['text_append'] = {
     if (Blockly.Names.equals(oldName, this.getFieldValue('VAR'))) {
       this.setFieldValue(newName, 'VAR');
     }
-  }
-};
-
-Blockly.Blocks['text_length'] = {
-  /**
-   * Block for string length.
-   * @this Blockly.Block
-   */
-  init: function() {
-    this.jsonInit({
-      "message0": Blockly.Msg.TEXT_LENGTH_TITLE,
-      "args0": [
-        {
-          "type": "input_value",
-          "name": "VALUE",
-          "check": ['String', 'Array']
-        }
-      ],
-      "output": 'Number',
-      "colour": Blockly.Blocks.texts.HUE,
-      "tooltip": Blockly.Msg.TEXT_LENGTH_TOOLTIP,
-      "helpUrl": Blockly.Msg.TEXT_LENGTH_HELPURL
-    });
   }
 };
 

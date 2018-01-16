@@ -30,7 +30,6 @@ goog.require('Blockly.Arduino');
 
 Blockly.Arduino.text = function() {
   // Text value.
-    console.log(this.getFieldValue('TEXT'));
   var code = Blockly.Arduino.quote_(this.getFieldValue('TEXT'));
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
@@ -60,4 +59,23 @@ Blockly.Arduino.text_join = function (block) {
     }
 
     return [result, Blockly.Arduino.ORDER_ATOMIC];
-}
+};
+
+Blockly.Arduino.text_remove_char = function (block) {
+    var stringVariable = Blockly.Arduino.valueToCode(block, 'String Variable', Blockly.Arduino.ORDER_ATOMIC);
+    var index = Blockly.Arduino.valueToCode(block, 'INDEX', Blockly.Arduino.ORDER_ATOMIC);
+    return stringVariable + '.remove(' + index + '); \n'
+};
+
+Blockly.Arduino.text_length = function (block) {
+    var stringVariable = Blockly.Arduino.valueToCode(block, 'String Variable', Blockly.Arduino.ORDER_ATOMIC);
+
+    return [stringVariable + '.length()', Blockly.Arduino.ORDER_ATOMIC];
+};
+
+
+Blockly.Arduino.text_value_to_string = function (block) {
+    var toBeStringValue = Blockly.Arduino.valueToCode(block, 'VALUE', Blockly.Arduino.ORDER_ATOMIC);
+
+    return [ 'String(' + toBeStringValue + ')', Blockly.Arduino.ORDER_ATOMIC];
+};
