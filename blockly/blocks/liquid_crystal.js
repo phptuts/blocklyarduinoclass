@@ -9,7 +9,7 @@ Blockly.Blocks['liquid_crystal_ic2_lcd_setup'] = {
     init: function () {
 
         this.appendDummyInput()
-            .appendField("SETUP Block | ")
+            .appendField("SETUP LCD Screen | ")
             .appendField("A4 -> SDA, A5 -> SCL ")
             .appendField(new Blockly.FieldImage("/images/setup.jpg", 100, 100, "*"))
             .appendField('Memory Address / LCD Type')
