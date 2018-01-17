@@ -207,6 +207,17 @@ app.get('/serial-monitor', (req, res) => {
 });
 
 /**
+ * This end point closes blue tooth serial port if it exists
+ */
+app.get('/detach-bluetooth', (req, res) => {
+   if (blueToothPort !== null)  {
+       blueToothPort.close();
+   }
+
+   res.send('OK');
+});
+
+/**
  * This end point writes the Arduino Serial Monitor
  */
 app.get('/bluetooth-monitor/:usb', (req, res) => {
@@ -218,7 +229,7 @@ app.get('/bluetooth-monitor/:usb', (req, res) => {
             blueToothPort.pipe(new Readline())
             blueToothPort.on('data', line => subjectBlueToothMonitor.next(line));
             blueToothPort.on('close', () => {
-                console.log('Serial Port was closed')
+                console.log('Bluetooth Serial Port was closed')
             });
         });
 

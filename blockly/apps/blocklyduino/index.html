@@ -359,6 +359,14 @@ function loadFileClick() {
     document.getElementById('load').click();
 }
 
+function closeBluetoothConnectionClick() {
+    var request = new XMLHttpRequest();
+
+    request.open("GET", "http://127.0.0.1:3000/detach-bluetooth", true);
+    request.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
+    request.send();
+}
+
   </script>
   <style>
     html, body {
@@ -509,7 +517,7 @@ function loadFileClick() {
           'Bluetooth Monitors',
           'height=500,width=500,left=0,top=0,resizable=no,scrollbars=no,toolbar=no,menubar=no,location=no,directories=no,status=no'
           );" type="button">Bluetooth Monitor</button>
-
+      <button onclick="closeBluetoothConnectionClick()">Close Bluetooth Connection</button>
     </div>
 
     <div id="tabs">
