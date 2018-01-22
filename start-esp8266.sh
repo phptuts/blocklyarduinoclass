@@ -2,4 +2,4 @@
 git pull
 cd blockly/apps/blocklyduino
 npm install
-node app.js
+node app_ide_only.js
