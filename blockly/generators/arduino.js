@@ -129,7 +129,8 @@ Blockly.Arduino.init = function(workspace) {
     var allVariables = Blockly.Variables.allVariables(workspace);
 
     for (var i = 0; i < allVariables.length; i += 1) {
-       if (variableNames.indexOf(allVariables[i]) === -1) {
+       var variableNameToTest = Blockly.Arduino.variableDB_.getName(allVariables[i], Blockly.Variables.NAME_TYPE);
+       if (variableNames.indexOf(variableNameToTest) === -1) {
           defvars[defvars.length] = 'int ' + allVariables[i] + ';';
        }
     }

@@ -167,8 +167,15 @@ Blockly.Arduino.serial_read_until = function () {
     Blockly.Arduino._serial_setup();
 
     var content = Blockly.Arduino.valueToCode(this, 'CONTENT', Blockly.Arduino.ORDER_ATOMIC) || '|';
+    var intoFunction = '';
+    if (content.indexOf('"') > - 1) {
+        intoFunction = content.replace(/"/g, "'");
+    }
+    else {
+        intoFunction = content + '[0]';
+    }
 
-    return ['Serial.readStringUntil(' + content + '[0])', Blockly.Arduino.ORDER_ATOMIC];
+    return ['Serial.readStringUntil(' + intoFunction + ')', Blockly.Arduino.ORDER_ATOMIC];
 
 };
 
