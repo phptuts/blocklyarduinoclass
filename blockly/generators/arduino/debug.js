@@ -14,8 +14,11 @@ Blockly.Arduino['debug'] = function(block) {
     var debugFunction  = '\n\nvoid debug(int blockNumber) { \n' +
                        '\t\tString stopDebug = ""; \n';
 
+
     for (var i = 0; i < variables.length; i += 1) {
-        debugFunction += '\t\tSerial.println("Variable:  name = ' + variables[i] + ' - value =  "' + ' + String(' + variables[i] + ')); \n';
+        var variableName = Blockly.Names.prototype.safeName_(variables[i]);
+
+        debugFunction += '\t\tSerial.println("Variable:  name = ' + variableName + ' - value =  "' + ' + String(' + variableName + ')); \n';
     }
 
     debugFunction += '\t\tSerial.println("Debugging Block " + String(blockNumber) + " ");\n\n';

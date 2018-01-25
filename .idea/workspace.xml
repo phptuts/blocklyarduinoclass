@@ -3,9 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="9a43f1fb-adb3-4e70-b968-056742fac691" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockly/apps/blocklyduino/index.html" afterPath="$PROJECT_DIR$/blockly/apps/blocklyduino/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockly/arduino_compressed.js" afterPath="$PROJECT_DIR$/blockly/arduino_compressed.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockly/generators/arduino.js" afterPath="$PROJECT_DIR$/blockly/generators/arduino.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockly/generators/arduino/base.js" afterPath="$PROJECT_DIR$/blockly/generators/arduino/base.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockly/generators/arduino/debug.js" afterPath="$PROJECT_DIR$/blockly/generators/arduino/debug.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockly/generators/arduino/text.js" afterPath="$PROJECT_DIR$/blockly/generators/arduino/text.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,8 +24,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blockly/apps/blocklyduino/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="509" column="10" lean-forward="false" selection-start-line="509" selection-start-column="10" selection-end-line="509" selection-end-column="10" />
+            <state relative-caret-position="569">
+              <caret line="274" column="72" lean-forward="false" selection-start-line="274" selection-start-column="72" selection-end-line="274" selection-end-column="72" />
               <folding>
                 <element signature="n#category#1;n#xml#0;n#body#0;n#html#0;n#!!top" expanded="false" />
                 <element signature="n#block#6;n#category#2;n#xml#0;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -58,11 +59,51 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="arduino.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="arduino.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blockly/generators/arduino.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="555">
-              <caret line="128" column="65" lean-forward="false" selection-start-line="128" selection-start-column="65" selection-end-line="128" selection-end-column="65" />
+            <state relative-caret-position="345">
+              <caret line="131" column="67" lean-forward="false" selection-start-line="131" selection-start-column="32" selection-end-line="131" selection-end-column="67" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="debug.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/blockly/generators/arduino/debug.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="18" column="60" lean-forward="false" selection-start-line="18" selection-start-column="60" selection-end-line="18" selection-end-column="60" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="text.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/blockly/generators/arduino/text.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="623">
+              <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="names.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/blockly/core/names.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="383">
+              <caret line="118" column="33" lean-forward="false" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="wifi.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/blockly/generators/arduino/wifi.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="353">
+              <caret line="30" column="52" lean-forward="false" selection-start-line="30" selection-start-column="52" selection-end-line="30" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -71,48 +112,18 @@
       <file leaf-file-name="bluetooth.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blockly/blocks/bluetooth.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
+            <state relative-caret-position="-259">
               <caret line="15" column="31" lean-forward="false" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bluetooth-monitor.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/blockly/apps/blocklyduino/bluetooth-monitor.html">
+      <file leaf-file-name="bluetooth.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/blockly/generators/arduino/bluetooth.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1350">
-              <caret line="90" column="9" lean-forward="false" selection-start-line="90" selection-start-column="9" selection-end-line="90" selection-end-column="9" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="serial-monitor.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/blockly/apps/blocklyduino/serial-monitor.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="27" lean-forward="false" selection-start-line="20" selection-start-column="27" selection-end-line="20" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/blockly/apps/blocklyduino/app.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3465">
-              <caret line="231" column="39" lean-forward="false" selection-start-line="231" selection-start-column="39" selection-end-line="231" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app_ide_only.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/blockly/apps/blocklyduino/app_ide_only.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="31" lean-forward="false" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
+            <state relative-caret-position="615">
+              <caret line="41" column="2" lean-forward="false" selection-start-line="41" selection-start-column="2" selection-end-line="41" selection-end-column="2" />
               <folding />
             </state>
           </provider>
@@ -120,16 +131,6 @@
       </file>
       <file leaf-file-name="start-esp8266.sh" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/start-esp8266.sh">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="start.sh" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/start.sh">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
               <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
@@ -216,7 +217,6 @@
         <option value="$PROJECT_DIR$/blockly/generators/arduino/list.js" />
         <option value="$PROJECT_DIR$/blockly/generators/arduino/neo_pixels.js" />
         <option value="$PROJECT_DIR$/blockly/generators/arduino/control.js" />
-        <option value="$PROJECT_DIR$/blockly/generators/arduino/debug.js" />
         <option value="$PROJECT_DIR$/blockly/generators/arduino/water_sensor.js" />
         <option value="$PROJECT_DIR$/blockly/generators/arduino/rfid.js" />
         <option value="$PROJECT_DIR$/blockly/generators/arduino/led_matrix.js" />
@@ -242,20 +242,21 @@
         <option value="$PROJECT_DIR$/blockly/blocks/base.js" />
         <option value="$PROJECT_DIR$/blockly/generators/arduino/math.js" />
         <option value="$PROJECT_DIR$/blockly/blocks/math.js" />
-        <option value="$PROJECT_DIR$/blockly/generators/arduino/text.js" />
         <option value="$PROJECT_DIR$/blockly/blocks/text.js" />
         <option value="$PROJECT_DIR$/blockly/blocks/liquid_crystal.js" />
         <option value="$PROJECT_DIR$/blockly/generators/arduino/bluetooth.js" />
         <option value="$PROJECT_DIR$/blockly/blocks/bluetooth.js" />
         <option value="$PROJECT_DIR$/blockly/apps/blocklyduino/serial-monitor.html" />
         <option value="$PROJECT_DIR$/blockly/apps/blocklyduino/bluetooth-monitor.html" />
-        <option value="$PROJECT_DIR$/blockly/apps/blocklyduino/index.html" />
         <option value="$PROJECT_DIR$/blockly/apps/blocklyduino/app.js" />
         <option value="$PROJECT_DIR$/start.sh" />
         <option value="$PROJECT_DIR$/blockly/apps/blocklyduino/app_ide_only.js" />
         <option value="$PROJECT_DIR$/start-esp8266.sh" />
         <option value="$PROJECT_DIR$/blockly/generators/arduino/base.js" />
         <option value="$PROJECT_DIR$/blockly/generators/arduino.js" />
+        <option value="$PROJECT_DIR$/blockly/generators/arduino/debug.js" />
+        <option value="$PROJECT_DIR$/blockly/generators/arduino/text.js" />
+        <option value="$PROJECT_DIR$/blockly/apps/blocklyduino/index.html" />
       </list>
     </option>
   </component>
@@ -275,7 +276,7 @@
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="827" />
+    <option name="height" value="825" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -569,18 +570,18 @@
       <workItem from="1516171909475" duration="805000" />
       <workItem from="1516567492245" duration="382000" />
       <workItem from="1516682216189" duration="482000" />
-      <workItem from="1516686215409" duration="1800000" />
+      <workItem from="1516686215409" duration="4708000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="212297000" />
+    <option name="totallyTimeSpent" value="215205000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="827" extended-state="1" />
+    <frame x="0" y="23" width="1440" height="825" extended-state="1" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24930556" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24930556" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -643,20 +644,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/blockly/core/generator.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="77" column="23" lean-forward="false" selection-start-line="77" selection-start-column="23" selection-end-line="77" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/blockly/apps/blocklyduino/node.manifest">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/blockly/blocks/rfid.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="375">
@@ -753,13 +740,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blockly/generators/arduino/wifi.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="30" column="52" lean-forward="false" selection-start-line="30" selection-start-column="52" selection-end-line="30" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/blockly/generators/arduino/liquid_crystal.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -806,13 +786,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="585">
           <caret line="56" column="33" lean-forward="false" selection-start-line="56" selection-start-column="16" selection-end-line="56" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/blockly/generators/arduino/text.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="885">
-          <caret line="76" column="36" lean-forward="false" selection-start-line="76" selection-start-column="16" selection-end-line="76" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -894,14 +867,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blockly/generators/arduino/bluetooth.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="41" column="2" lean-forward="false" selection-start-line="41" selection-start-column="2" selection-end-line="41" selection-end-column="2" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/blockly/apps/blocklyduino/serial-monitor.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -950,18 +915,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blockly/blocks/bluetooth.js">
+    <entry file="file://$PROJECT_DIR$/blockly/generators/arduino/base.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="31" lean-forward="false" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
+        <state relative-caret-position="550">
+          <caret line="174" column="37" lean-forward="false" selection-start-line="174" selection-start-column="34" selection-end-line="174" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blockly/generators/arduino/wifi.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="30" column="52" lean-forward="false" selection-start-line="30" selection-start-column="52" selection-end-line="30" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blockly/generators/arduino.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="131" column="67" lean-forward="false" selection-start-line="131" selection-start-column="32" selection-end-line="131" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blockly/core/names.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="383">
+          <caret line="118" column="33" lean-forward="false" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blockly/generators/arduino/debug.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="60" lean-forward="false" selection-start-line="18" selection-start-column="60" selection-end-line="18" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blockly/generators/arduino/text.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="623">
+          <caret line="71" column="0" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/blockly/apps/blocklyduino/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="509" column="10" lean-forward="false" selection-start-line="509" selection-start-column="10" selection-end-line="509" selection-end-column="10" />
+        <state relative-caret-position="569">
+          <caret line="274" column="72" lean-forward="false" selection-start-line="274" selection-start-column="72" selection-end-line="274" selection-end-column="72" />
           <folding>
             <element signature="n#category#1;n#xml#0;n#body#0;n#html#0;n#!!top" expanded="false" />
             <element signature="n#block#6;n#category#2;n#xml#0;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -984,18 +989,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blockly/generators/arduino/base.js">
+    <entry file="file://$PROJECT_DIR$/blockly/blocks/bluetooth.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
-          <caret line="174" column="37" lean-forward="false" selection-start-line="174" selection-start-column="34" selection-end-line="174" selection-end-column="37" />
+        <state relative-caret-position="-259">
+          <caret line="15" column="31" lean-forward="false" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blockly/generators/arduino.js">
+    <entry file="file://$PROJECT_DIR$/blockly/generators/arduino/bluetooth.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="128" column="65" lean-forward="false" selection-start-line="128" selection-start-column="65" selection-end-line="128" selection-end-column="65" />
+        <state relative-caret-position="615">
+          <caret line="41" column="2" lean-forward="false" selection-start-line="41" selection-start-column="2" selection-end-line="41" selection-end-column="2" />
           <folding />
         </state>
       </provider>

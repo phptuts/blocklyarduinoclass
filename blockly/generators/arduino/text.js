@@ -44,7 +44,7 @@ Blockly.Arduino.text_join = function (block) {
             result += Blockly.Arduino.valueToCode(block, block.inputList[i].name, Blockly.Arduino.ORDER_ATOMIC).replace(/"/g, '').toString();
             result += '"';
         }
-        else if (block.getChildren()[i].outputConnection.check_.indexOf('String') > -1) {
+        else if (block.getChildren()[i].outputConnection.check_ && block.getChildren()[i].outputConnection.check_.indexOf('String') > -1) {
             result += Blockly.Arduino.valueToCode(block, block.inputList[i].name, Blockly.Arduino.ORDER_ATOMIC).toString();
         }
         else {
