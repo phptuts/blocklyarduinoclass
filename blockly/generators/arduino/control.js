@@ -45,7 +45,7 @@ Blockly.Arduino.controls_for = function() {
   }
   var code;
     // Both arguments are simple numbers.
-    var up = parseFloat(argumentFrom) <= parseFloat(argumentTo);
+    var up = typeof argumentFrom === 'string' || typeof  argumentTo === 'string' || (parseFloat(argumentFrom) <= parseFloat(argumentTo));
     code = 'for (' + variable0 + ' = ' + argumentFrom + '; ' +
         variable0 + (up ? ' <= ' : ' >= ') + argumentTo + '; ' +
         variable0 + (up ? ' += ' : ' =- ') + Math.abs(parseInt(byArgument)) + ') {\n' +
