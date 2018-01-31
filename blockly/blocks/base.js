@@ -148,19 +148,16 @@ Blockly.Blocks['inout_pulse_in'] = {
     init: function() {
 
         this.appendDummyInput()
-            .appendField("Pulse In \n")
+            .appendField("Pulse In (Time high microseconds / use 'long' variable)\n")
             .appendField(new Blockly.FieldImage("/images/pulse.png", 50, 50, "*"));
 
 
         this.setColour(230);
         this.appendDummyInput()
-            .appendField("PIN / Port to record how long it says on HIGH / LOW.")
-            .appendField(new Blockly.FieldDropdown(profile.default.digital), "PIN");
-
-        this.appendDummyInput()
-            .appendField("This tell is to measure high or low.")
-            .appendField(new Blockly.FieldDropdown([["HIGH", "HIGH"], ["LOW", "LOW"]]), 'BOOL')
-
+            .appendField("Trig PIN #.")
+            .appendField(new Blockly.FieldDropdown(profile.default.digital), "TRIG")
+            .appendField("Echo PIN #.")
+            .appendField(new Blockly.FieldDropdown(profile.default.digital), "ECHO");
 
         this.setOutput(true, 'Number');
         this.setTooltip('Return value in milli seconds of how long the pin was high');

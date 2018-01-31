@@ -64,10 +64,24 @@ Blockly.Arduino.inout_digital_read = function() {
 };
 
 Blockly.Arduino.inout_pulse_in = function () {
-    var dropDownPin = this.getFieldValue('PIN');
-    Blockly.Arduino.setups_['setup_input_' + dropDownPin] = 'pinMode(' + dropDownPin + ', INPUT);';
-    var stateOfPin = (this.getFieldValue('BOOL') == 'HIGH') ? 'HIGH' : 'LOW';
-    var code = '(int) (pulseIn(' + dropDownPin + ', ' + stateOfPin + '))';
+    var echoPin = this.getFieldValue('ECHO');
+    var trigPin = this.getFieldValue('TRIG');
+
+
+    Blockly.Arduino.setups_['setup_input_' + echoPin] = 'pinMode(' + echoPin + ', INPUT);';
+    Blockly.Arduino.setups_['setup_input_' + trigPin] = 'pinMode(' + trigPin + ', OUTPUT);';
+    Blockly.Arduino.definitions_['pulse_in_function'] =
+        'long pulseInSonar(int trigPin, int echoPin) { \n' +
+            '\t\tdigitalWrite(trigPin, LOW);\n' +
+            '\t\tdelayMicroseconds(2); \n'  +
+            '\t\tdigitalWrite(trigPin, HIGH); \n'  +
+            '\t\tdelayMicroseconds(10); \n'  +
+            '\t\tdigitalWrite(trigPin, LOW); \n' +
+           '\t\treturn pulseIn(echoPin, HIGH); \n' +
+            '} \n\n';
+
+
+    var code = 'pulseInSonar(' + trigPin + ', ' + echoPin + ')';
     return [code, Blockly.Arduino.ORDER_ATOMIC];
 }
 
