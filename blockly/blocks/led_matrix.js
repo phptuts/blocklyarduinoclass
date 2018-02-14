@@ -84,7 +84,7 @@ Blockly.Blocks['led_matrix_set_led'] = {
         this.appendValueInput("Column Number")
             .setCheck("Number")
             .setAlign(Blockly.ALIGN_RIGHT)
-            .appendField("Row Number: ");
+            .appendField("Column Number: ");
 
         this.appendValueInput("Row Number")
             .setCheck("Number")

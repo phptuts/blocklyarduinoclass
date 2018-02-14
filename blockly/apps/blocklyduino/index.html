@@ -716,7 +716,18 @@ function closeBluetoothConnectionClick() {
     <category name="Led Matrix">
       <block type="led_matrix_set_row"></block>
       <block type="led_matrix_set_column"></block>
-      <block type="led_matrix_set_led"></block>
+      <block type="led_matrix_set_led">
+        <value name="Column Number">
+          <block type="math_number">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+        <value name="Row Number">
+          <block type="math_number">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+      </block>
       <block type="led_matrix_clear"></block>
     </category>
     <category name="Water Sensor">
