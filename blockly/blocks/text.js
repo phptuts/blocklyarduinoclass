@@ -112,6 +112,29 @@ Blockly.Blocks['text_value_to_string'] = {
     }
 };
 
+Blockly.Blocks['text_get_part_of_string'] = {
+    init: function () {
+        this.setColour(Blockly.Blocks.texts.HUE);
+
+        this.appendValueInput("VALUE")
+            .setCheck("String")
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField("String to Process ");
+
+        this.appendValueInput("PARSING_CHAR")
+            .setCheck("String")
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField("Parsing Character No Variables ");
+
+        this.appendValueInput("INDEX")
+            .setCheck("Number")
+            .setAlign(Blockly.ALIGN_RIGHT)
+            .appendField("Index ");
+
+        this.setOutput(true, "String");
+    }
+};
+
 Blockly.Blocks['text_join'] = {
   /**
    * Block for creating a string made up of any number of elements of any type.

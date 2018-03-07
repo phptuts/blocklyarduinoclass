@@ -38,5 +38,5 @@ Blockly.Arduino['bluetooth_read_until_string'] = function (block) {
 Blockly.Arduino['bluetooth_write'] = function (block) {
     var stringValue =  Blockly.Arduino.valueToCode(block, 'DATA', Blockly.Arduino.ORDER_ATOMIC)
 
-    return ['blueToothSerial.println(' + stringValue + ')', Blockly.Arduino.ORDER_ATOMIC];
+    return 'blueToothSerial.println(' + stringValue + '); \n\n';
 };

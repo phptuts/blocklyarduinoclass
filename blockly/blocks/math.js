@@ -62,6 +62,7 @@ Blockly.Blocks['math_parse_int'] = {
    }
 };
 
+
 Blockly.Blocks['math_parse_double'] = {
     init: function () {
         this.setColour(Blockly.Blocks.math.HUE);

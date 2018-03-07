@@ -71,8 +71,11 @@ socket.on('usb-ports', function (usbPorts) {
     document.querySelector("#blue-tooth-ports").innerHTML = "";
 
     for (var i = 0; i < usbPorts.length; i += 1) {
-
-        document.querySelector('#com-ports').appendChild(createUSBOption(usbPorts[i], i));
+        console.log(usbPorts[i])
+        if (isArduino(usbPorts[i])) {
+            document.querySelector('#com-ports').appendChild(createUSBOption(usbPorts[i], i));
+            continue;
+        }
         document.querySelector("#blue-tooth-ports").appendChild(createUSBOption(usbPorts[i], i));
     }
 });
@@ -492,7 +495,7 @@ function closeBluetoothConnectionClick() {
         <option value="19200">19200 (baud)</option>
         <option value="28800">28800 (baud)</option>
         <option value="38400">38400 (baud)</option>
-        <option value="57600">38400 (baud)</option>
+        <option value="57600">57600 (baud)</option>
       </select>
       <button type="button" onclick="uploadClick()">Upload</button>
       <button type="button" onclick="resetClick()">Reset</button>
@@ -598,6 +601,7 @@ function closeBluetoothConnectionClick() {
       <block type="text_remove_char"></block>
       <block type="text_length"></block>
       <block type="text_value_to_string"></block>
+      <block type="text_get_part_of_string"></block>
     </category>
     <category name="Variables" >
       <block type="variables_create"></block>
@@ -649,8 +653,35 @@ function closeBluetoothConnectionClick() {
       <block type="inout_buildin_led"></block>
     </category>
     <category name="NEO Pixel">
-      <block type="neo_pixel_setup"></block>
-      <block type="neo_pixel_set_pixel_color"></block>
+      <block type="neo_pixel_setup">
+        <value name="NUMBER OF LEDS">
+          <block type="math_number">
+            <field name="NUM">60</field>
+          </block>
+        </value>
+      </block>
+      <block type="neo_pixel_set_pixel_color">
+        <value name="BLUE">
+          <block type="math_number">
+            <field name="NUM">150</field>
+          </block>
+        </value>
+        <value name="RED">
+          <block type="math_number">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+        <value name="GREEN">
+          <block type="math_number">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+        <value name="PIXEL">
+          <block type="math_number">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+      </block>
     </category>
     <category name="Servo">
       <block type="servo_move">

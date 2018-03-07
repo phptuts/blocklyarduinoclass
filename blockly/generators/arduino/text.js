@@ -79,3 +79,30 @@ Blockly.Arduino.text_value_to_string = function (block) {
 
     return [ 'String(' + toBeStringValue + ')', Blockly.Arduino.ORDER_ATOMIC];
 };
+
+Blockly.Arduino.text_get_part_of_string = function (block) {
+
+    var rawString = Blockly.Arduino.valueToCode(block, 'VALUE', Blockly.Arduino.ORDER_ATOMIC);
+    var char = Blockly.Arduino.valueToCode(block, 'PARSING_CHAR', Blockly.Arduino.ORDER_ATOMIC).replace(/"/g, "'");
+    var index = Blockly.Arduino.valueToCode(block, 'INDEX', Blockly.Arduino.ORDER_ATOMIC);
+
+    Blockly.Arduino.definitions_['text_get_part_of_string'] =
+        'String getParseValue(String data, char separator, int index) { \n' +
+        '\tint found = 0;' +
+        '\tint strIndex[] = {0, -1}; \n' +
+        '\tint maxIndex = data.length()-1; \n' +
+        '\tfor(int i=0; i<=maxIndex && found<=index; i++){   \n' +
+        '\t    if(data.charAt(i)==separator || i==maxIndex){    \n' +
+        '\t        found++;                      \n' +
+        '\t        strIndex[0] = strIndex[1]+1;    \n' +
+        '\t        strIndex[1] = (i == maxIndex) ? i+1 : i;    \n' +
+        '\t    }                            \n' +
+        '\t}                     \n' +
+        '\treturn found>index ? data.substring(strIndex[0], strIndex[1]) : ""; \n' +
+   ' }\n';
+
+
+
+        return [ 'getParseValue(' + rawString + ', ' + char + ', ' +  index + ')', Blockly.Arduino.ORDER_ATOMIC];
+
+};
