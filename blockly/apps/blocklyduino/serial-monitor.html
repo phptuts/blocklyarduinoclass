@@ -1,0 +1,112 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Serial Monitor</title>
+    <script type="text/javascript" src="../library/socket.io.js"></script>
+
+    <style>
+        #content_serial_monitor h3 {
+            font-size: 1em;
+            text-align: center;
+        }
+
+        #clear-serial-monitor {
+            width: 481px;
+            font-size: 2em;
+            font-weight: bold;
+            position: fixed;
+            top: 6px;
+        }
+
+        input#serial-line {
+            margin: 5px;
+            padding: 0;
+            height: 32px;
+            width: 408px;
+            font-size: .9em;
+            position: fixed;
+            top: 49px;
+            left: 3px;
+        }
+        button#send {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-left: 1%;
+            position: fixed;
+            top: 56px;
+            left: 419px;
+
+        }
+        #text_from_serial_monitor {
+            position: fixed;
+            top: 80px;
+            left: 9px;
+            height: auto;
+            max-height: 402px;
+            min-height: 402px;
+            overflow: auto;
+            background-color: #fdfdfd;
+            word-break: normal !important;
+            word-wrap: normal !important;
+            white-space: pre !important;
+            width: 480px;
+            font-size: 1em;
+            border: solid 1px gainsboro;
+        }
+        body{
+            padding-bottom: 60px; // push your whole site same height upwards. ;)
+        }
+    </style>
+</head>
+
+<body>
+    <div id="content_serial_monitor" >
+        <button id="clear-serial-monitor" onclick="clearSerialMonitorClick()">Clear Window</button>
+        <div>
+            <input type="text" id="serial-line" />
+            <button onclick="sendMessageClick()" id="send">Send</button>
+        </div>
+        <pre id="text_from_serial_monitor"></pre>
+    </div>
+    <script>
+
+        /**
+         * Clears out the serial monitor
+         */
+        function clearSerialMonitorClick() {
+            var debugElement = document.querySelector('#content_serial_monitor pre');
+            debugElement.innerHTML = '';
+        }
+
+        /**
+         * Sends Message from browser to Arduino via node server
+         */
+        function sendMessageClick() {
+            var data = document.getElementById('serial-line').value;
+            var request = new XMLHttpRequest();
+
+            request.open("GET", "http://127.0.0.1:3000/serial-monitor-write/" + data, true);
+            request.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
+            request.send();
+        }
+
+        /**
+         * Socket Connections
+         */
+        var socket = io.connect(':3000');
+        socket.on('connection', function (socket) {
+            console.log('socket connected');
+        });
+        socket.on('serial-monitor', function(data) {
+            // 's' is because it's used by the debugger
+            if (data === "\n" || data.length === 0 || data === 's') {
+                return;
+            }
+            var div = document.querySelector('#text_from_serial_monitor');
+            div.innerHTML = div.innerHTML + data;
+            document.querySelector("#text_from_serial_monitor").scrollTo(0,document.querySelector("#text_from_serial_monitor").scrollHeight);
+        });
+
+    </script>
+</body>
+</html>
