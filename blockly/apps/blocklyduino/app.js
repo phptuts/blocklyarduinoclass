@@ -5,6 +5,8 @@ const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const port = process.env.PORT || 3000;
+const Avrgirl = require('avrgirl-arduino');
+const axios = require('axios');
 
 
 const SerialPort = require('SerialPort');
@@ -19,18 +21,6 @@ require('rxjs/Operator/distinctUntilChanged');
 require('rxjs/Operator/map');
 require('rxjs/Operator/take');
 
-/**
- * Guess of where the arduino executable is for windows
- * @type string[]
- */
-const windowsArduinoExecutableGuesses = [
-    "C:\\Program Files\\Arduino\\Arduino_debug.exe",
-    "C:\\Program Files\\Arduino\\Arduino.exe",
-    "C:\\Program Files (x86)\\Arduino\\Arduino_debug.exe",
-    "C:\\Program Files (x86)\\Arduino\\Arduino.exe"
-];
-
-const macArduinoExecutableGuess = '/Applications/Arduino.app/Contents/MacOS/Arduino';
 
 app.use('/blocks', express.static(__dirname + '/../../'));
 app.use('/public', express.static(__dirname + '/'));
@@ -106,38 +96,13 @@ io.on('connection', () => {
 
 
 /**
- * Tries to guess where the arduino executable is.
- * @returns string
- */
-let getArduinoFile = () => {
-    let arduinoFile = null;
-
-    if (os.platform() == 'darwin') {
-        arduinoFile = macArduinoExecutableGuess;
-    }
-    else if (os.platform() == 'win32') {
-        arduinoFile = windowsArduinoExecutableGuesses.filter((file) => fs.existsSync(file)).pop();
-    }
-    else {
-        // This means it's running linux and we can just use the command
-        arduinoFile = 'arduino';
-    }
-
-    if (arduinoFile === null || arduinoFile === undefined) {
-        throw new Error('There was an error trying to find the arduino executable file.');
-    }
-
-    return arduinoFile;
-};
-
-/**
  * Writes the arduino code
  */
-let writeArduinoCode = (code) => {
-    if (fs.existsSync('sketch.ino')) {
-        fs.unlinkSync('sketch.ino');
+let writeArduinoHexFile = (code) => {
+    if (fs.existsSync('arduino.hex')) {
+        fs.unlinkSync('arduino.hex');
     }
-    fs.writeFileSync('sketch.ino', code);
+    fs.writeFileSync('arduino.hex', code);
 };
 
 /**
@@ -147,8 +112,25 @@ let writeArduinoCode = (code) => {
  * @returns Observable<string[]>
  */
 let uploadCode = (usbPort) => {
-    let getCommand = RX.Observable.bindCallback(cmd.get);
-    return getCommand(`${getArduinoFile()} --upload sketch.ino --port ${usbPort}`);
+    const avrgirl = new Avrgirl({
+        board: 'uno',
+        port: usbPort
+    });
+
+  return RX.Observable.create( (observer)  => {
+        serialPort.close(() => {
+            avrgirl.flash('arduino.hex', (err) => {
+                if (err) {
+                    console.error(err, 'AVR GIRL ERROR');
+                    observer.error(err);
+                } else {
+                    observer.next(undefined)
+                    observer.complete();
+                }
+            });
+        });
+    });
+
 };
 
 /**
@@ -210,11 +192,11 @@ app.get('/serial-monitor', (req, res) => {
  * This end point closes blue tooth serial port if it exists
  */
 app.get('/detach-bluetooth', (req, res) => {
-   if (blueToothPort !== null)  {
-       blueToothPort.close();
-   }
+    if (blueToothPort !== null) {
+        blueToothPort.close();
+    }
 
-   res.send('OK');
+    res.send('OK');
 });
 
 /**
@@ -250,15 +232,24 @@ app.get('/bluetooth-monitor-write/:message', (req, res) => {
  */
 app.post('/upload-code/:port', (req, res) => {
 
+
     observableUSBPorts$
         .take(1)
-        .do(() => writeArduinoCode(req.body))
         .do(usbPorts => readSerialPort(usbPorts[req.params['port']].comName))
+        .flatMap(usbPorts => RX.Observable.fromPromise(axios.post('http://arduino-compile.noahglaser.net/upload-code/uno', req.body, {
+                    headers: {'Content-Type': 'text/plain'}
+            }))
+            .do(res => writeArduinoHexFile(res.data))
+            .map(() => usbPorts)
+        )
         .flatMap(usbPorts => uploadCode(usbPorts[req.params['port']].comName))
-        .do(() => fs.unlinkSync('sketch.ino'))
-        .do(args => args[0] !== null ? console.error(args) : undefined)
-        .map(args => args[0] === null)
-        .subscribe(uploadedSuccessfully => io.emit('uploaded', uploadedSuccessfully));
+        .do(() => fs.unlinkSync('arduino.hex'))
+        .map(() => true)
+        .catch((err) => {
+            console.log(err);
+            return RX.Observable.of(false);
+        })
+        .subscribe((uploadedSuccessfully) => io.emit('uploaded', uploadedSuccessfully));
 
     res.send('');
 });
