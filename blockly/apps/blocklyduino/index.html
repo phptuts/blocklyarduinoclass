@@ -68,7 +68,6 @@ socket.on('connection', function (socket) {
 
 socket.on('usb-ports', function (usbPorts) {
     document.querySelector('#com-ports').innerHTML = "";
-    document.querySelector("#blue-tooth-ports").innerHTML = "";
 
     for (var i = 0; i < usbPorts.length; i += 1) {
         console.log(usbPorts[i])
@@ -455,13 +454,13 @@ function closeBluetoothConnectionClick() {
         border: solid gray 1px;
     }
 
-    #controls, #blue-tooth-controls {
+    #controls {
       margin-bottom: 10px;
       text-align: center;
     }
 
     #menu {
-      height: 128px;
+      height: 105px;
     }
     h1 {
       height: 30px;
@@ -510,17 +509,6 @@ function closeBluetoothConnectionClick() {
       <input type="file" id="load" style="display: none;"/>
 
       <!--button class="launch" onclick="runJS()">Run Program</button-->
-    </div>
-    <div id="blue-tooth-controls">
-      <label for="blue-tooth-ports">Bluetooth Connection</label>
-      <select id="blue-tooth-ports">
-
-      </select>
-      <button onclick="window.open('/bluetooth-monitor/' + document.querySelector('#blue-tooth-ports').value,
-          'Bluetooth Monitors',
-          'height=500,width=500,left=0,top=0,resizable=no,scrollbars=no,toolbar=no,menubar=no,location=no,directories=no,status=no'
-          );" type="button">Bluetooth Monitor</button>
-      <button onclick="closeBluetoothConnectionClick()">Close Bluetooth Connection</button>
     </div>
 
     <div id="tabs">

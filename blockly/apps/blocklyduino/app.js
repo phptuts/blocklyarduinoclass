@@ -43,9 +43,6 @@ const observableUSBPorts$ = RX.Observable
 const subjectSerialMonitor = new RX.Subject();
 const observableSubjectSerialMonitor$ = subjectSerialMonitor.asObservable();
 
-const subjectBlueToothMonitor = new RX.Subject();
-const observableSubjectBlueToothMonitor$ = subjectBlueToothMonitor.asObservable();
-
 let serialPortStringStream = '';
 const behaviorSubjectForDebugBlocks = new RX.BehaviorSubject('');
 behaviorSubjectForDebugBlocks
@@ -57,11 +54,6 @@ behaviorSubjectForDebugBlocks
         io.emit('debug-block', blockNumber);
         serialPortStringStream = '';
     });
-
-
-observableSubjectBlueToothMonitor$
-    .map(bytes => new Buffer(bytes).toString('utf8'))
-    .subscribe(line => io.emit('bluetooth-monitor', line));
 
 /**
  * Builds the stream for Reading the serial port
@@ -76,11 +68,6 @@ observableSubjectSerialMonitor$
  * The serial port object
  */
 let serialPort = null;
-
-/**
- * The Serial Port For Communicating with bluetooth
- */
-let blueToothPort = null;
 
 /**
  * Is true if the socket is open
@@ -121,7 +108,7 @@ let uploadCode = (usbPort) => {
         serialPort.close(() => {
             avrgirl.flash('arduino.hex', (err) => {
                 if (err) {
-                    console.error(err, 'AVR GIRL ERROR');
+                    console.log(err, 'AVR GIRL ERROR');
                     observer.error(err);
                 } else {
                     observer.next(undefined)
@@ -186,45 +173,6 @@ app.get('/serial-monitor-write/:message', (req, res) => {
  */
 app.get('/serial-monitor', (req, res) => {
     res.sendFile(path.join(__dirname, 'serial-monitor.html'));
-});
-
-/**
- * This end point closes blue tooth serial port if it exists
- */
-app.get('/detach-bluetooth', (req, res) => {
-    if (blueToothPort !== null) {
-        blueToothPort.close();
-    }
-
-    res.send('OK');
-});
-
-/**
- * This end point writes the Arduino Serial Monitor
- */
-app.get('/bluetooth-monitor/:usb', (req, res) => {
-    let sub = observableUSBPorts$
-        .take(1)
-        .subscribe((usbPorts) => {
-            sub.unsubscribe();
-            blueToothPort = new SerialPort(usbPorts[req.params['usb']].comName, {autoOpen: true});
-            blueToothPort.pipe(new Readline())
-            blueToothPort.on('data', line => subjectBlueToothMonitor.next(line));
-            blueToothPort.on('close', () => {
-                console.log('Bluetooth Serial Port was closed')
-            });
-        });
-
-    res.sendFile(path.join(__dirname, 'bluetooth-monitor.html'));
-});
-
-
-app.get('/bluetooth-monitor-write/:message', (req, res) => {
-
-    if (blueToothPort !== null) {
-        blueToothPort.write(req.params['message']);
-    }
-    res.send(blueToothPort === null ? 'serial-port-not-there' : '');
 });
 
 /**
