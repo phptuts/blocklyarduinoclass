@@ -70,12 +70,10 @@ socket.on('usb-ports', function (usbPorts) {
     document.querySelector('#com-ports').innerHTML = "";
 
     for (var i = 0; i < usbPorts.length; i += 1) {
-        console.log(usbPorts[i])
         if (isArduino(usbPorts[i])) {
             document.querySelector('#com-ports').appendChild(createUSBOption(usbPorts[i], i));
             continue;
         }
-        document.querySelector("#blue-tooth-ports").appendChild(createUSBOption(usbPorts[i], i));
     }
 });
 
