@@ -151,7 +151,7 @@ function renderContent(selectedArea = 'blocks') {
  * @returns {boolean}
  */
 function isArduino(port) {
-    return typeof port.manufacturer !== 'undefined' && (port.manufacturer.indexOf('Arduino') > -1 || port.manufacturer.indexOf('Microsoft'));
+    return typeof port.manufacturer !== 'undefined' && (port.manufacturer.indexOf('Arduino') > -1 || port.manufacturer.indexOf('Microsoft') > -1);
 }
 
 /**
